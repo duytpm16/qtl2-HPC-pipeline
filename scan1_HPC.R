@@ -72,7 +72,7 @@ covar <- dataset$covar
 
 
 ### Check to see if required data are loaded in global environment
-stopifnot(c("genoprobs", "K", "map", "markers", args[2]) %in% ls())
+stopifnot(c("genoprobs", "K", args[2]) %in% ls())
 
 
 
