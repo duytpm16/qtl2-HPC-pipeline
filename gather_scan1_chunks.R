@@ -56,4 +56,4 @@ temp <- do.call(cbind, temp)
 
 
 ### Save the matrix as .rds
-saveRDS(temp, file = paste0(outfile,'.rds'))
+saveRDS(temp, file = paste0(out_file,'.rds'))
