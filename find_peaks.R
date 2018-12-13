@@ -36,16 +36,15 @@ library(dplyr)
 ### Command line arguments / variables to change
 args <- commandArgs(trailingOnly = TRUE)
 load(args[1])
-stopifnot("map" %in% ls())
-
 scan1_mat <- readRDS(args[2])
 dataset   <- get(args[3])
-map       <- get("map")
 thr       <- as.numeric(args[4])
 num_cores <- as.numeric(args[5])
 type_scan <- args[6]
 type_data <- args[7]
 
+stopifnot("map" %in% ls())
+map       <- get("map")
 
 
 
