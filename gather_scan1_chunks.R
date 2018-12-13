@@ -46,8 +46,8 @@ out_file    <- args[4]
 
 ### Read in all qtl2 chunk file name and cbind them together
 temp <- list()
-for(i in chunk_start:chunk_end)){
-    temp[[i]] <- readRDS(paste0(pattern,'_chunk_',i,'.rds')
+for(i in chunk_start:chunk_end){
+    temp[[i]] <- readRDS(paste0(pattern,'_chunk_',i,'.rds'))
 }
 
 temp <- do.call(cbind, temp)
