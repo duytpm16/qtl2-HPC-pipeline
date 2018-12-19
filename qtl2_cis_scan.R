@@ -71,7 +71,7 @@ for(i in 1:nrow(annots)){
         
     
     
-    # Get highest LOD score
+    # Get cis marker with highest LOD score
     best_cis_marker <- max_scan1(scan1_output = cis_scan1, 
                                  map          = map)
     
