@@ -6,7 +6,7 @@
 module load R/3.5.1
 
 
-### Uncomment line 10 to run scan1 not in parallel, then comment line 11 and qsub this .sh file. 
+### Uncomment line 11 to run scan1 not in parallel, then comment line 12 and qsub this .sh file. 
 #      Otherwise qsub run_scan1_parallel.sh first, then qsub this .sh file when run_scan1_parallel.sh is finished
 #Rscript scan1_HPC.R attie_islet_284_qtl_viewer_v2.RData dataset.islet.mrna rankz 8
 Rscript gather_scan1_chunks.R islet_mrna_additive_scan 1 22 test.rds
