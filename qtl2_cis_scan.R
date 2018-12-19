@@ -10,7 +10,7 @@ library(qtl2)
 #    1.) annots   : annotation dataframe as defined in *
 #    2.) covar    : matrix of covariates as created by model.matrix.  samples x covariates
 #    3.) expr     : matrix of expressions.                            samples x expressions
-#    4.) id_col   : column name in annots dataframe that correspond to the column name of expr
+#    4.) id_col   : column name in annots dataframe that contains the column names of expr
 #    5.) chr_col  : name of column in annots that correspond to the chromosome location of each expr
 #    6.) pos_col  : name of column in annots that correspond to the starting Mb location of each expr.
 #    7.) cis_thres: maximum distance from pos_col to determine cis.  cis = (chr_col == marker$chr & abs(pos_col - marker$pos) <= cis_thres)
