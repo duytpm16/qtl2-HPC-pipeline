@@ -1,6 +1,6 @@
 ####################################################################################################################
 #
-#   This script performs the "finding peaks" analysis of qtl2 scan1.
+#   This script performs the "find_peaks" function on the scan1 matrix output and scan1blup of each QTL.
 #
 #
 #
