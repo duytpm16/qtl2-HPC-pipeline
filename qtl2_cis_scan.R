@@ -5,7 +5,7 @@ library(qtl2)
 
 ### Variables to change
 #    * - https://github.com/churchill-lab/qtlapi/blob/master/docs/QTLAPIDataStructures.md
-#    Assuming genoprobs, map, and markers are in the environment
+#    Assuming genoprobs, kinship (K), map, and markers are in the environment
 
 #    1.) annots   : annotation dataframe as defined in *
 #    2.) covar    : matrix of covariates as created by model.matrix.  samples x covariates
