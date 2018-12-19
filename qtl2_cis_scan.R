@@ -13,7 +13,7 @@ library(qtl2)
 #    4.) id_col   : column name in annots dataframe that correspond to the column name of expr
 #    5.) chr_col  : name of column in annots that correspond to the chromosome location of each expr
 #    6.) pos_col  : name of column in annots that correspond to the starting Mb location of each expr.
-#    7.) cis_thres: threshold to determine cis.  abs(pos_col - marker_pos) <= cis_thres
+#    7.) cis_thres: maximum distance from pos_col to determine cis.  cis = (chr_col == marker$chr & abs(pos_col - marker$pos) <= cis_thres)
 #    8.) outfile  : name to save results as .rds
 annots    <- dataset.islet.mrna$annots
 covar     <- dataset.islet.mrna$covar
