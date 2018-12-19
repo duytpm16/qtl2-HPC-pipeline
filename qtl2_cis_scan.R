@@ -27,11 +27,21 @@ outfile   <- 'attie_islet_mrna_cis_scan_results.rds'
 
 
 
+
+
+
+
+
+
 ### Extracting required values from annots 
 ids    <- annots[,id_col]       
 id_chr <- annots[,chr_col]
 id_pos <- annots[,pos_col]
      
+
+
+
+
 
 
 
@@ -46,6 +56,11 @@ results <- data.frame(id_col      = ids,
                       
 results <- cbind(results, 
                  matrix(0, nrow = nrow(annots), ncol = 8, dimnames = list(1:nrow(annots), LETTERS[1:8])))
+
+
+
+
+
 
 
 
@@ -97,6 +112,10 @@ for(i in 1:nrow(annots)){
     print(i)
   
 }
+
+
+
+
 
 
 
