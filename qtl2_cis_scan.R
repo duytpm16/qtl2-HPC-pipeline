@@ -55,7 +55,7 @@ results <- data.frame(id_col      = ids,
                       lod         = numeric(length = n))
                       
 results <- cbind(results, 
-                 matrix(0, nrow = nrow(annots), ncol = 8, dimnames = list(1:nrow(annots), LETTERS[1:8])))
+                 matrix(0, nrow = nrow(annots), ncol = 8, dimnames = list(1:n, LETTERS[1:8])))
 
 
 
@@ -69,7 +69,7 @@ results <- cbind(results,
 
 
 ### cis Scan begins
-for(i in 1:nrow(annots)){
+for(i in 1:n){
        
     # Find markers within cis_threshold to the start position of an expression 
     nearest_markers <- subset(markers, chr == id_chr[i] & abs(pos-id_pos[i] <= cis_thres))$marker
