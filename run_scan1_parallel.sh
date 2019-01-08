@@ -1,6 +1,6 @@
 for i in {1..22}
 do
-  echo "PBS -q batch
+  echo "#PBS -q batch
 #PBS -l nodes=1:ppn=8
 
 module load R/3.5.1
