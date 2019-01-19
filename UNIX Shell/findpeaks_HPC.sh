@@ -11,8 +11,8 @@ thr='6'
 num_cores='8'
 type_scan='additive'
 type_data='rankz'
-drop=''
-int_mat=''
+drop='NA'
+int_mat='NA'
 
 
 
