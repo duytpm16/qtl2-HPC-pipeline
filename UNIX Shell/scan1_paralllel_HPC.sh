@@ -4,7 +4,7 @@
 module load R/3.5.1
 
 
-
+job_name='run_esc_prot'
 
 
 for i in {1..250}
@@ -24,6 +24,6 @@ chunk_number=${i}
 chunk_size=32
 
 
-Rscript qtl2_interaction_scan.R viewer_data=\$viewer_data dataset=\$dataset num_cores=\$num_cores type_scan=\$type_scan type_data=\$type_data int_name=\$int_name chunk_number=\$chunk_number chunk_size=\$chunk_size" >> run_esc_sex_int_${i}.sh
-qsub run_esc_sex_int_${i}.sh
+Rscript qtl2_interaction_scan.R viewer_data=\$viewer_data dataset=\$dataset num_cores=\$num_cores type_scan=\$type_scan type_data=\$type_data int_name=\$int_name chunk_number=\$chunk_number chunk_size=\$chunk_size" >> "${job_name}_${i}.sh"
+qsub "${job_name}_${i}.sh"
 done
