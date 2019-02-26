@@ -9,10 +9,10 @@ scan1_mat='munger_esc_proteins_additive_qtl_lod_v3.rds'
 dataset='dataset.esc.proteins'
 thr='6'
 num_cores='8'
-type_scan='sex_int'
+type_scan='additive'
 type_data='rankz'
-drop='NA'
-int_mat='munger_esc_proteins_sex_int_qtl_lod_v3.rds'
+drop='1.5'
+int_mat='NA'
 
 
 
