@@ -6,14 +6,12 @@
 #
 #
 #   Input:
-#       1.) pattern:   Pattern of the qtl2 chunk file name without the _chunk_#.rds
-#       2.) chunk start: chunk start
-#       3.) chunk_end: chunk end
-#       4.) out_file:  File name to save the concatenated chunks without the '.rds'
+#       1: pattern:   Pattern of the qtl2 chunk file name
+#       2: out_file:  File name to save the concatenated chunks without the '.rds'
 #
 #
 #   Output: 
-#       1.) Matrix of all chunks cbind together
+#       1: Matrix of all chunks cbind together
 #
 #
 #
@@ -35,26 +33,32 @@ library(data.table)
 # 1.) pattern: pattern without the _chunk_#.rds
 # 2.) chunk start: chunk start
 # 3.) chunk_end: chunk end
-# 4.) out_file: name to save the combined chunk file
 args <- commandArgs(trailingOnly = TRUE)
-pattern     <- args[1]
-chunk_start <- as.numeric(args[2])
-chunk_end   <- as.numeric(args[3])
-out_file    <- args[4]
+print(args)
+if(length(args)==0){
+    print("No arguments supplied.")
+}else{
+    for(i in 1:length(args)){
+        a <- strsplit(args[i],split = '=', fixed = TRUE)[[1]]
+        assign(a[1],a[2])
+    }
+}
 
 
-
+chunk_start = as.numeric(chunk_start)
+chunk_end = as.numeric(chunk_end)
 
 
 ### Read in all qtl2 chunk file name and cbind them together
 temp <- list()
 for(i in chunk_start:chunk_end){
-    temp[[i]] <- readRDS(paste0(pattern,'_chunk_',i,'.rds'))
+    	temp[[i]] <- readRDS(paste0(pattern,'_chunk_',i,'.rds'))
 }
 
-temp <- do.call(cbind, temp)
+temp <- do.call(func, temp)
 
 
+#stopifnot(sum(grepl('pheno', colnames(temp))) == 0)
 
 
 ### Save the matrix as .rds
