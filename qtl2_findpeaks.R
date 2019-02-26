@@ -1,0 +1,278 @@
+####################################################################################################################
+#
+#   This script performs the "finding peaks" analysis of qtl2 scan1.
+#
+#
+#
+#   Input:
+#       1:            Path or filename of qtl viewer .RData 
+#       2: scan1:     Path or filename of the output from scan1 (LOD matrix)
+#       3: dataset:   Which dataset in the qtl viewer to save lod summary to
+#       4: thr:       threshold to find peaks function.
+#       5: num_cores: number of cores to run
+#       6: type_scan: 'additive' or blank
+#       7: type_data: which expression data, 'norm', 'rankz', 'raw' or blank if 6 is blank
+#
+#
+#   Output: 
+#       1: Output from find peaks function - QTL peaks above threshold and formatted for QTL Viewer
+#
+#
+#
+#
+#   Authors: Duy Pham, Andrew Deighan, & Isabela Gyuricza
+#   Date:    November 6, 2018
+#   E-mails: duy.pham@jax.org, andrew.deighan@jax.org, & isabela.gyuricza@jax.org
+#
+####################################################################################################################
+
+### Load required library packages
+options(stringsAsFactors = FALSE)
+library(qtl2) 
+library(dplyr)
+
+
+
+
+
+
+
+### Command line arguments / variables to change
+args <- commandArgs(trailingOnly = TRUE)
+print(args)
+if(length(args)==0){
+    print("No arguments supplied.")
+}else{
+    for(i in 1:length(args)){
+        a <- strsplit(args[i],split = '=', fixed = TRUE)[[1]]
+	assign(a[1],a[2])
+    }
+}
+
+
+
+
+
+
+
+
+### Get required data
+load(viewer_data)
+stopifnot("map" %in% ls())
+
+scan1_mat <- readRDS(scan1_mat)
+ds        <- get(dataset)
+thr       <- as.numeric(thr)
+num_cores <- as.numeric(num_cores)
+
+
+
+
+
+
+
+### Get drop for find_peaks
+if(drop != 'NA'){
+    drop <- as.numeric(drop)
+}else{
+    drop <- NULL
+}
+
+
+
+
+
+
+### Get interaction matrix if type_scan is not additive
+if(int_mat != 'NA'){
+   int_mat <- readRDS(int_mat)
+   
+   stopifnot(dim(int_mat) == dim(scan1_mat))
+   stopifnot(colnames(int_mat) == colnames(scan1_mat))
+   stopifnot(rownames(int_mat) == rownames(scan1_mat))   
+
+   scan1_mat <- int_mat - scan1_mat
+   print(sum(scan1_mat <= 0))
+   #stopifnot(sum(scan1_mat <= 0, na.rm=TRUE) == 0) 
+}
+
+
+
+
+
+
+
+
+
+### Run fin_peaks
+peaks <- find_peaks(scan1_mat, 
+		    map = map, 
+		    threshold = thr, 
+                    drop = drop, 
+                    cores = num_cores)
+
+
+
+
+
+
+
+
+
+
+
+### Formatting for QTL Viewer
+if(!is.null(drop)){
+
+   peaks <- peaks %>%
+                  select(-lodindex) %>%                         # Remove lodindex column
+                  left_join(markers, by = c('chr', 'pos')) %>%  # Get marker ids
+                  rename(annot.id  = lodcolumn,
+                         qtl.chr   = chr,
+                         qtl.pos   = pos,
+                         marker.id = marker,
+			 ci.lo     = ci_lo,
+			 ci.hi     = ci_hi) %>%
+               	  select(annot.id, marker.id, lod, qtl.chr, qtl.pos, ci.lo, ci.hi)       # Reorder data frame
+}else{
+
+   peaks <- peaks %>%
+                  select(-lodindex) %>%                         # Remove lodindex column
+                  left_join(markers, by = c('chr', 'pos')) %>%  # Get marker ids
+                  rename(annot.id  = lodcolumn,
+                         qtl.chr   = chr,
+                         qtl.pos   = pos,
+                         marker.id = marker) %>%
+                  select(annot.id, marker.id, lod, qtl.chr, qtl.pos)       # Reorder data frame
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### BLUP scan at each QTL if additive
+if(type_scan == 'additive'){
+
+   stopifnot(c('K','genoprobs') %in% ls())
+  
+   peaks = cbind(peaks, matrix(0, nrow = nrow(peaks), ncol = 8,
+                               dimnames = list(NULL, LETTERS[1:8])))
+   expr  = ds[[type_data]]
+   covar = ds$covar
+   peaks = peaks[peaks$marker.id %in% markers$marker,]
+   
+
+   for(i in 1:nrow(peaks)){
+
+       chr     = peaks$qtl.chr[i]
+       mkr     = peaks$marker.id[i]
+       annot   = peaks$annot.id[i]
+       gp      = genoprobs[,chr]
+       gp[[1]] = gp[[1]][,,mkr,drop=FALSE]
+
+       blup    = scan1blup(genoprobs = gp, pheno = expr[,annot, drop = FALSE],
+                           kinship = K[[chr]], addcovar = covar, cores = num_cores)
+
+
+       peaks[i, LETTERS[1:8]] <- blup[1,1:8]
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+### Determine if QTLs are cis or not
+if((ds$datatype %in% c('mRNA', 'protein'))){
+
+   id = if(ds$datatype == 'mRNA') 'gene_id' else 'protein_id'
+   
+
+   annots <- ds$annots
+   peaks  <- merge(peaks, annots[,c(id,'chr','start','end','symbol')], by.x='annot.id',by.y = id, all.x = TRUE)
+
+  
+   peaks <- peaks %>% 
+		  rename(gene.start=start,
+			 gene.end=end,
+		         gene.chr=chr,
+			 gene.symbol=symbol) %>% 
+		  mutate(cis = (gene.chr == qtl.chr) & abs(qtl.pos-gene.start) <= 4)
+
+   print(head(peaks))
+
+   if(!is.null(drop)){
+      
+      if(is.matrix(int_mat)){
+
+      	 peaks <- peaks %>% 
+	         	select(annot.id, marker.id, lod, qtl.chr, qtl.pos, gene.chr, gene.start, gene.end, gene.symbol, cis, ci.lo, ci.hi)
+      }else{ 
+         
+        peaks <- peaks %>%
+                        select(annot.id, marker.id, lod, qtl.chr, qtl.pos, gene.chr, gene.start, gene.end, gene.symbol, cis, ci.lo, ci.hi, A, B, C, D, E, F, G, H) 
+         
+      }
+		  
+   }else{
+
+      if(is.matrix(int_mat)){
+
+         peaks <- peaks %>%
+                        select(annot.id, marker.id, lod, qtl.chr, qtl.pos, gene.chr, gene.start, gene.end, gene.symbol, cis)
+      }else{
+
+        peaks <- peaks %>%
+                        select(annot.id, marker.id, lod, qtl.chr, qtl.pos, gene.chr, gene.start, gene.end, gene.symbol, cis, A, B, C, D, E, F, G, H)
+
+      }
+
+
+
+   }
+}
+
+
+
+
+
+
+### Save peaks to data
+ds$lod.peaks[[type_scan]] <- peaks
+assign(dataset, ds)
+
+
+
+
+
+
+
+
+
+
+### Save to .RData file
+save(list = ls()[ls() %in% c(grep('dataset.', ls(), value = TRUE),
+                                  'K',
+                                  'genoprobs',
+                                  'map',
+                                  'markers',
+                                  'ensemble.version')], file = viewer_data)
