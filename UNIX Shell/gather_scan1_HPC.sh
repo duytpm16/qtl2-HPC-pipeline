@@ -12,4 +12,4 @@ out_file='munger_esc_proteins_additive_qtl_lod'
 
 
 
-Rscript gather_scan1_chunks.R "pattern=$pattern" "chunk_start=$chunk_start" "chunk_end=$chunk_end" "func=$func" "out_file=$out_file
+Rscript gather_scan1_chunks.R "pattern=$pattern" "chunk_start=$chunk_start" "chunk_end=$chunk_end" "func=$func" "out_file=$out_file"
