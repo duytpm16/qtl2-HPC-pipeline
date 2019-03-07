@@ -72,7 +72,7 @@ results <- cbind(results,
 for(i in 1:n){
        
     # Find markers within cis_threshold to the start position of an expression 
-    nearest_markers <- subset(markers, chr == id_chr[i] & abs(pos-id_pos[i] <= cis_thres))$marker
+    nearest_markers <- subset(markers, chr == id_chr[i] & abs(pos-id_pos[i]) <= cis_thres)$marker
         
         
     
