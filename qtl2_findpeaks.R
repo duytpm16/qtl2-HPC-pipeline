@@ -10,7 +10,7 @@
 #       3: dataset:   Which dataset in the qtl viewer to save lod summary to
 #       4: thr:       threshold to find peaks function.
 #       5: num_cores: number of cores to run
-#       6: type_scan: 'additive' or blank
+#       6: type_scan: type of scan. Ex. 'additive', 'sex_int', 'age_int'...
 #       7: type_data: which expression data, 'norm', 'rankz', 'raw' or blank if 6 is blank
 #
 #
