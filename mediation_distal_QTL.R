@@ -1,9 +1,11 @@
+### Options and Libraries
 options(stringsAsFactors = FALSE)
 library(dplyr)
 library(tidyr)
 library(intermediate)
 library(intermediate2)
 library(qtl2)
+
 
 
 
@@ -345,6 +347,13 @@ results <- results %>%
 
 results$mediation.dp <- (results$target.lod - results$mediation.lod) / results$target.lod
 results$inverse.dp   <- (results$mediator.lod - results$inverse.lod) / results$mediator.lod
+
+
+
+
+
+
+
 
 
 
