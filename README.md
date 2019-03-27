@@ -3,3 +3,7 @@
  
 See 
 https://github.com/churchill-lab/qtlapi/blob/master/docs/QTLAPIDataStructures.md
+
+
+
+Need to match the .R with shell script in UNIX SHELL directory
