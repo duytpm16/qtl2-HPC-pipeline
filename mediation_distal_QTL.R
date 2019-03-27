@@ -30,8 +30,7 @@ load(viewer_data)
 z_thres      <- as.numeric(z_thres)
 pos_thres    <- as.numeric(pos_thres)
 cores        <- as.numeric(cores)
-chunk_number <- as.numeric(chunk_number)
-chunk_size   <- as.numeric(chunk_size)
+
 
 
 
@@ -74,7 +73,11 @@ stopifnot(rownames(targ_covar) == rownames(med_covar))
 # Get chunk range for target
 targ_rng <- 1:nrow(lod.peaks)
 
-if(!is.na(chunk_number)){
+if(!chunk_number %in% c('NA','na')){
+  
+   chunk_number <- as.numeric(chunk_number)
+   chunk_size   <- as.numeric(chunk_size)
+   
    max_col = nrow(targ_annot)
    targ_rng = ((chunk_number - 1) * chunk_size + 1):(chunk_number * chunk_size)
    if(targ_rng[length(targ_rng)] > max_col) {
