@@ -11,8 +11,8 @@ library(qtl2)
 
 
 
-### Arguments. Number and size to break target and mediator into chunks
-### Command line arguments / variables to change
+
+### Command line arguments / variables to change. See .sh script too
 args <- commandArgs(trailingOnly = TRUE)
 print(args)
 if(length(args)==0){
@@ -28,6 +28,8 @@ if(length(args)==0){
 
 
 
+
+### Load QTL viewer data. Changing some character parameters to numeric
 load(viewer_data)
 z_thres      <- as.numeric(z_thres)
 pos_thres    <- as.numeric(pos_thres)
@@ -40,7 +42,7 @@ cores        <- as.numeric(cores)
 
 
 
-### Extract rankZ, annotation, covariate data, 
+### Extract rankZ, annotation, covariate data, and target's lod.peaks table
 targ_annot  <- get(targ_dataset)$annots %>% dplyr::rename(id = targ_id, pos = start) %>% mutate(chr = as.character(chr))
 med_annot   <- get(med_dataset)$annots %>% dplyr::rename(id = med_id, pos = start) %>% mutate(chr = as.character(chr))
 
