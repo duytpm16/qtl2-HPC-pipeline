@@ -80,7 +80,7 @@ if(!chunk_number %in% c('NA','na')){
    chunk_number <- as.numeric(chunk_number)
    chunk_size   <- as.numeric(chunk_size)
    
-   max_col = nrow(targ_annot)
+   max_col = nrow(lod.peaks)
    targ_rng = ((chunk_number - 1) * chunk_size + 1):(chunk_number * chunk_size)
    if(targ_rng[length(targ_rng)] > max_col) {
       targ_rng = targ_rng[1]:max_col
