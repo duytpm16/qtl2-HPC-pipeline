@@ -1,6 +1,6 @@
 ####################################################################################################################
 #
-#   This script performs qtl2 additive scan
+#   This script performs qtl2 additive or interactive scan
 #
 #   Notes*:
 #         The QTL scan can be run in 'chunks' or all at once.
@@ -10,19 +10,19 @@
 #                  with the chunk_number value being 1,2,3,4,5, or 6 to get the columns:
 #                       1-1000,1001-2000,2001-3000,3001-4000,4001-5000,5001-5433, respectively.
 #
-#         If you do not want to run in chunks, leave chunk_number and chunk_size blank
+#         If you do not want to run in chunks, make chunk_number and chunk_size 'NA' or 'na'
 #
 #
 #
 #
 #   Input:
-#       1: Input file:    Path to the qtl viewer .RData 
-#       2: dataset:       Which dataset.* to use
-#       3: expression:    Which transformation of the phenotype to use. "norm" or "rankz"
-#       4: int_term:      a string with interactive variables seperated by ','. Ex. 'sex' or 'sex,batch'
-#       5: num_cores:     Number of cores to run
-#       6: chunk_number:  Numeric value of the chunk number.  Can be left blank
-#       7: chunk_size:    Numeric value of chunk size. Should be consistent.  Can be left blank
+#      1: input.file:    Path to the qtl viewer .RData 
+#      2: dataset:       Which dataset.* to use
+#      3: type_data:     Which form of the expression data to use. Ex. 'norm' or 'rankz'
+#      4: int_name:      A string with interactive variables in samples dataframe separated by '|'.     Ex. 'sex' or 'sex|batch'
+#      5: num_cores:     Number of cores to run
+#      6: chunk_number:  Numeric value of the chunk number. Can be left blank
+#      7: chunk_size:    Numeric value of chunk size. Should be consistent. Can be left blank
 #
 #   Output: 
 #       1: Matrix containing LOD scoress for each of the phenotype that was given to scan1 at each marker.
@@ -48,12 +48,11 @@ library(qtl2)
 ### Command line arguments / Variables to change
 # 1: input.file:    Path to the qtl viewer .RData 
 # 2: dataset:       Which dataset.* to use
-# 3: expression:    Which transformation of the phenotype to use. "norm" or "rankz"
-# 4: int_term:      a string with interactive variables in samples dataframe separated by '|'.     Ex. 'sex' or 'sex|batch'
+# 3: type_data:     Which form of the expression data to use. Ex. 'norm' or 'rankz'
+# 4: int_name:      A string with interactive variables in samples dataframe separated by '|'.     Ex. 'sex' or 'sex|batch'
 # 5: num_cores:     Number of cores to run
 # 6: chunk_number:  Numeric value of the chunk number. Can be left blank
 # 7: chunk_size:    Numeric value of chunk size. Should be consistent. Can be left blank
-### Command line arguments / variables to change
 args <- commandArgs(trailingOnly = TRUE)
 print(args)
 if(length(args)==0){
@@ -101,7 +100,7 @@ samples <- ds$samples
 
 
 ### Get interactive matrix
-if(int_term != 'NA'){
+if(!int_term %in% c('NA','na')){
    
    stopifnot(strsplit(int_term, split = '|', fixed = TRUE)[[1]] %in% colnames(samples))
    
@@ -120,7 +119,7 @@ print(int_covar)
 ### Run qtl scan on a subset on a subset of the expr matrix if chunk_size and chunk_number is given
 pheno.rng <- 1:ncol(expr)
 
-if(chunk_number != 'NA'){
+if(!chunk_number %in% c('NA','na')){
    chunk_number <- as.numeric(chunk_number)
    chunk_size   <- as.numeric(chunk_size)
 
