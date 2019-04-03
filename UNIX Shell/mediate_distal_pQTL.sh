@@ -1,3 +1,21 @@
+# viewer_data:  path to QTL formatted .RData
+# targ_dataset: dataset.* of the target
+# med_dataset:  dataset.* of the mediator
+# targ_id:      target identification in annots data frame: Ex. 'protein_id' or 'gene_id'
+# med_id:       mediator identification in annots data frame: Ex. 'protein_id' or 'gene_id'
+# expr_type:    Which expression matrix to use in the dataset.*
+# type_peak:    Which LOD summary table from lod.peaks list in dataset.*
+# med_method:   See 'method' parameter in intermediate package by Petr Simecek
+# z_thres:      Z-score cut-off. Remove mediators that do not drop LOD score below z_thres. Should be negative value
+# pos_thes:     Keep mediators that are within pos_thres of the QTL
+# cores:        Number of cores
+# filename:     Name to same results
+# chunk_size:   Chunk size. Should be consistent.
+# chunk_number: Chunk number. Changes with 'i' below
+
+
+
+
 #PBS -l nodes=1:ppn=8
 #PBS -l walltime=24:00:00
 
@@ -23,6 +41,7 @@ med_dataset='dataset.islet.mrna.284'
 targ_id='protein_id'
 med_id='gene_id'
 expr_type='rankz'
+type_peak = 'additive'
 med_method='double-lod-diff'
 z_thres='-4'
 pos_thres='10'
