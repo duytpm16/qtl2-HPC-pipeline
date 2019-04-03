@@ -3,7 +3,7 @@ options(stringsAsFactors = FALSE)
 library(dplyr)
 library(tidyr)
 library(intermediate)
-library(intermediate2)
+library(intermediate2) # devtools::install_github('duytpm16/intermediate2')
 library(qtl2)
 
 
