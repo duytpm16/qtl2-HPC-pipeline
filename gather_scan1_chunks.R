@@ -61,7 +61,7 @@ chunk_end = as.numeric(chunk_end)
 ### Read in all chunk files and combine them together
 temp <- list()
 for(i in chunk_start:chunk_end){
-    	temp[[i]] <- readRDS(paste0(pattern,'_chunk_',i,'.rds'))
+    	temp[[i]] <- readRDS(paste0(pattern,'_',i,'.rds'))
 }
 
 temp <- do.call(func, temp)
