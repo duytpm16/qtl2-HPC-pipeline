@@ -55,7 +55,7 @@ chunk_size='100'
 
 
 
-Rscript mediation_distal_QTL.R viewer_data=\$viewer_data targ_dataset=\$targ_dataset med_dataset=\$med_dataset targ_id=\$targ_id med_id=\$med_id expr_type=\$expr_type med_method=\$med_method z_thres=\$z_thres pos_thres=\$pos_thres cores=\$cores filename=\$filename chunk_number=\$chunk_number chunk_size=\$chunk_size" >> "${job_name}_${i}.sh"
+Rscript mediation_distal_QTL.R viewer_data=\$viewer_data targ_dataset=\$targ_dataset med_dataset=\$med_dataset targ_id=\$targ_id med_id=\$med_id expr_type=\$expr_type type_peak=\$type_peak med_method=\$med_method z_thres=\$z_thres pos_thres=\$pos_thres cores=\$cores filename=\$filename chunk_number=\$chunk_number chunk_size=\$chunk_size" >> "${job_name}_${i}.sh"
 qsub "${job_name}_${i}.sh"
 done
 
