@@ -1,21 +1,23 @@
 ####################################################################################################################
 #
-#   This script performs the "finding peaks" analysis of qtl2 scan1.
+#   This script runs the find_peaks function in qtl2.
 #
 #
 #
 #   Input:
-#       1:            Path or filename of qtl viewer .RData 
-#       2: scan1:     Path or filename of the output from scan1 (LOD matrix)
-#       3: dataset:   Which dataset in the qtl viewer to save lod summary to
-#       4: thr:       threshold to find peaks function.
-#       5: num_cores: number of cores to run
-#       6: type_scan: type of scan. Ex. 'additive', 'sex_int', 'age_int'...
-#       7: type_data: which expression data, 'norm', 'rankz', 'raw' or blank if 6 is blank
+#       1: viewer_data: Path to qtl viewer .RData 
+#       2: scan1:       Path to scan1 matrix outputted from scan1 function as .rds (LOD matrix)
+#       3: dataset:     Which dataset in the qtl viewer to save lod summary 
+#       4: thr:         threshold to find peaks function.
+#       5: num_cores:   number of cores to run
+#       6: type_scan:   type of scan. Ex. 'additive', 'sex_int', 'age_int'...
+#       7: type_data:   which expression data, 'norm', 'rankz', 'raw' or blank if 6 is blank
+#       8: drop:        (Optional) See 'drop' parameter of find_peaks function. Leave as 'NA' or 'na' if not used
+#	9: int_mat:     (Optional) LOD matrix from interaction scan to get effects. Leave as 'NA' or 'na' if not used
 #
 #
 #   Output: 
-#       1: Output from find peaks function - QTL peaks above threshold and formatted for QTL Viewer
+#       1: Output from find peaks function saved in the dataset given
 #
 #
 #
@@ -58,7 +60,7 @@ if(length(args)==0){
 
 ### Get required data
 load(viewer_data)
-stopifnot("map" %in% ls())
+stopifnot(c(dataset, "map") %in% ls())
 
 scan1_mat <- readRDS(scan1_mat)
 ds        <- get(dataset)
@@ -72,7 +74,7 @@ num_cores <- as.numeric(num_cores)
 
 
 ### Get drop for find_peaks
-if(drop != 'NA'){
+if(!drop %in% c('NA','na')){
     drop <- as.numeric(drop)
 }else{
     drop <- NULL
@@ -84,7 +86,7 @@ if(drop != 'NA'){
 
 
 ### Get interaction matrix if type_scan is not additive
-if(int_mat != 'NA'){
+if(!int_mat %in% c('NA','na')){
    int_mat <- readRDS(int_mat)
    
    stopifnot(dim(int_mat) == dim(scan1_mat))
