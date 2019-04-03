@@ -10,18 +10,19 @@
 #                  with the chunk_number value being 1,2,3,4,5, or 6 to get the columns:
 #                       1-1000,1001-2000,2001-3000,3001-4000,4001-5000,5001-5433, respectively.
 #
-#         If you do not want to run in chunks, leave chunk_number and chunk_size blank
+#         If you do not want to run in chunks, make chunk_number and chunk_size 'NA' or 'na'
 #
 #
 #
 #
 #   Input:
-#       1: Input file:    Path to the qtl viewer .RData 
-#       2: dataset:       Which dataset.* to use
-#       3: expression:    Which transformation of the phenotype to use. "norm" or "rankz"
-#       4: num_cores:     Number of cores to run
-#       5: chunk_number:  Numeric value of the chunk number.  Can be left blank
-#       6: chunk_size:    Numeric value of chunk size. Should be consistent.  Can be left blank
+#      1: input.file:    Path to the qtl viewer .RData 
+#      2: dataset:       Which dataset.* to use
+#      3: type_data:     Which form of the expression data to use. Ex. 'norm' or 'rankz'
+#      4: int_name:      (Optional) A string with interactive variables in samples dataframe separated by '|'. Ex. 'sex' or 'sex|batch'. 'NA' or 'na' if not used
+#      5: num_cores:     Number of cores to run
+#      6: chunk_number:  (Optional) Numeric value of the chunk number. 'NA' or 'na' if not used
+#      7: chunk_size:    (Optional) Numeric value of chunk size. Should be consistent.  'NA' or 'na' if not used
 #
 #   Output: 
 #       1: Matrix containing LOD scoress for each of the phenotype that was given to scan1 at each marker.
@@ -65,6 +66,9 @@ load(viewer_data)
 
 
 
+
+
+
 ### Check to see if required data are loaded in global environment
 stopifnot(c("genoprobs", "K", dataset) %in% ls())
 print(ls())
@@ -79,7 +83,7 @@ perm_run  <- as.numeric(perm_run)
 
 # Get covariate matrix
 covar   <- ds$covar
-samples <- ds$samples
+
 
 
 
@@ -99,7 +103,9 @@ samples <- ds$samples
 
 ### Get interactive matrix
 if(!int_term %in% c('NA','na')){
-
+ 
+   # Get samples dataframe
+   samples <- ds$samples
    stopifnot(strsplit(int_term, split = '|', fixed = TRUE)[[1]] %in% colnames(samples))
 
    int_covar <- covar[,grep(int_term, colnames(covar)), drop = FALSE]
