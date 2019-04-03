@@ -1,6 +1,6 @@
 ####################################################################################################################
 #
-#   This script performs qtl2 additive scan
+#   This script performs qtl2 permutation scan
 #
 #   Notes*:
 #         The QTL scan can be run in 'chunks' or all at once.
@@ -98,7 +98,7 @@ samples <- ds$samples
 
 
 ### Get interactive matrix
-if(int_term != 'NA'){
+if(!int_term %in% c('NA','na')){
 
    stopifnot(strsplit(int_term, split = '|', fixed = TRUE)[[1]] %in% colnames(samples))
 
@@ -121,7 +121,7 @@ if(int_term != 'NA'){
 ### Run qtl scan on a subset on a subset of the expr matrix if chunk_size and chunk_number is given
 pheno.rng <- 1:ncol(expr)
 
-if(chunk_number != 'NA'){
+if(!chunk_number %in% c('NA','na')){
    chunk_number <- as.numeric(chunk_number)
    chunk_size   <- as.numeric(chunk_size)
 
