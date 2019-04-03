@@ -8,10 +8,10 @@
 #       1: viewer_data: Path to qtl viewer .RData 
 #       2: scan1:       Path to scan1 matrix outputted from scan1 function as .rds (LOD matrix)
 #       3: dataset:     Which dataset in the qtl viewer to save lod summary 
-#       4: thr:         threshold to find peaks function.
-#       5: num_cores:   number of cores to run
-#       6: type_scan:   type of scan. Ex. 'additive', 'sex_int', 'age_int'...
-#       7: type_data:   which expression data, 'norm', 'rankz', 'raw' or blank if 6 is blank
+#       4: thr:         See thre parameter in find_peaks function.
+#       5: num_cores:   Number of cores to run
+#       6: type_scan:   Type of scan. Ex. 'additive', 'sex_int', 'age_int'...
+#       7: type_data:   Which expression data, 'norm', 'rankz', 'raw' or blank if 6 is blank
 #       8: drop:        (Optional) See 'drop' parameter of find_peaks function. Leave as 'NA' or 'na' if not used
 #	9: int_mat:     (Optional) LOD matrix from interaction scan to get effects. Leave as 'NA' or 'na' if not used
 #
