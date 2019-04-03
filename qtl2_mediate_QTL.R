@@ -52,7 +52,7 @@ med_expr   <- get(med_dataset)[[expr_type]][rownames(targ_expr), med_annot$id]
 targ_covar <- get(targ_dataset)$covar[rownames(targ_expr),]
 med_covar  <- get(med_dataset)$covar[rownames(targ_expr),]
 
-lod.peaks  <- get(targ_dataset)$lod.peaks[[type_scan]]
+lod.peaks  <- get(targ_dataset)$lod.peaks[[type_peak]]
 
 
 
