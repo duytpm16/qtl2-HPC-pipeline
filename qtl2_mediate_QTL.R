@@ -327,14 +327,13 @@ for(i in 1:nrow(results)){
 results <- results %>%
                    filter(mediator.id != '') %>%
                    separate_rows(mediator.id, mediator.symbol, mediator.chr, mediator.start, mediator.end, 
-                                 pearson, spearman,best.model, best.model.p, best.triad, best.triad.p,
+                                 pearson, best.model, best.model.p, best.triad, best.triad.p,
                                  causal.p, reactive.p, independent.p, undecided.p,
                                  mediator.lod, mediation.lod, inverse.lod, mediation.z,
                                  inverse.z, sep = ',') %>%
                    mutate(mediator.start = as.numeric(mediator.start),
                           mediator.end   = as.numeric(mediator.end),
                           pearson        = as.numeric(pearson),
-                          spearman       = as.numeric(spearman),
                           best.model.p   = as.numeric(best.model.p),
                           best.triad.p   = as.numeric(best.triad.p),
                           causal.p       = as.numeric(causal.p),
