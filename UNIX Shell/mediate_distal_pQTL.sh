@@ -4,12 +4,12 @@
 # targ_id:      target identification in annots data frame: Ex. 'protein_id' or 'gene_id'
 # med_id:       mediator identification in annots data frame: Ex. 'protein_id' or 'gene_id'
 # expr_type:    Which expression matrix to use in the dataset.*
-# type_peak:    Which LOD summary table from lod.peaks list in dataset.*
+# type_peak:    Which LOD summary table to use in lod.peaks list in dataset.*
 # med_method:   See 'method' parameter in intermediate package by Petr Simecek
 # z_thres:      Z-score cut-off. Remove mediators that do not drop LOD score below z_thres. Should be negative value
 # pos_thes:     Keep mediators that are within pos_thres of the QTL
 # cores:        Number of cores
-# filename:     Name to same results
+# filename:     Name to save results
 # chunk_size:   Chunk size. Should be consistent.
 # chunk_number: Chunk number. Changes with 'i' below
 
