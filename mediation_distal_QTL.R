@@ -43,19 +43,26 @@ cores        <- as.numeric(cores)
 
 
 ### Extract rankZ, annotation, covariate data, and target's lod.peaks table
-targ_annot  <- get(targ_dataset)$annots %>% dplyr::rename(id = targ_id, pos = start) %>% mutate(chr = as.character(chr))
-med_annot   <- get(med_dataset)$annots %>% dplyr::rename(id = med_id, pos = start) %>% mutate(chr = as.character(chr))
+targ_annot <- get(targ_dataset)$annots %>% dplyr::rename(id = targ_id, pos = start) %>% mutate(chr = as.character(chr))
+med_annot  <- get(med_dataset)$annots %>% dplyr::rename(id = med_id, pos = start) %>% mutate(chr = as.character(chr))
 
-targ_expr   <- get(targ_dataset)[[expr_type]][, targ_annot$id]
-med_expr    <- get(med_dataset)[[expr_type]][rownames(targ_expr), med_annot$id]
+targ_expr  <- get(targ_dataset)[[expr_type]][, targ_annot$id]
+med_expr   <- get(med_dataset)[[expr_type]][rownames(targ_expr), med_annot$id]
 
-targ_covar  <- get(targ_dataset)$covar[rownames(targ_expr),]
-med_covar   <- get(med_dataset)$covar[rownames(targ_expr),]
+targ_covar <- get(targ_dataset)$covar[rownames(targ_expr),]
+med_covar  <- get(med_dataset)$covar[rownames(targ_expr),]
 
-lod.peaks   <- get(targ_dataset)$lod.peaks$additive %>% filter(!cis)
+lod.peaks  <- get(targ_dataset)$lod.peaks$additive %>% filter(!cis)
 
 
 
+
+
+
+
+
+
+### Making sure names match
 stopifnot(colnames(targ_expr) == targ_annot$id)
 stopifnot(colnames(med_expr)  == med_annot$id)
 stopifnot(rownames(targ_expr) == rownames(med_expr))
@@ -73,8 +80,7 @@ stopifnot(rownames(targ_covar) == rownames(med_covar))
 
 
 
-### Chunk Range
-# Get chunk range for target
+### Split lod.peaks table if runnning in parallel
 targ_rng <- 1:nrow(lod.peaks)
 
 if(!chunk_number %in% c('NA','na')){
@@ -89,7 +95,6 @@ if(!chunk_number %in% c('NA','na')){
    }
 }
 
-# Target info
 lod.peaks <- lod.peaks[targ_rng,]
 
 
@@ -120,7 +125,6 @@ results <- data.frame(target.id     = lod.peaks$annot.id,
                       mediator.start  = character(length = n),
                       mediator.end    = character(length = n),
                       pearson         = numeric(length = n),
-                      spearman        = numeric(length = n),
                       best.model      = character(length = n),
                       best.model.p    = numeric(length = n),
                       best.triad      = character(length = n),
@@ -219,7 +223,7 @@ for(i in 1:nrow(results)){
        
        # Compute correlation between target and mediator
        results$pearson[i]  <- paste0(signif(c(cor(targ_expr[,target], med_expr[,med$id], use = 'pairwise.complete.obs', method = 'pearson'))), collapse = ',')
-       results$spearman[i] <- paste0(signif(c(cor(targ_expr[,target], med_expr[,med$id], use = 'pairwise.complete.obs', method = 'spearman'))), collapse = ',')
+      
   
     
     
