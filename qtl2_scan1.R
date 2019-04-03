@@ -19,10 +19,10 @@
 #      1: input.file:    Path to the qtl viewer .RData 
 #      2: dataset:       Which dataset.* to use
 #      3: type_data:     Which form of the expression data to use. Ex. 'norm' or 'rankz'
-#      4: int_name:      A string with interactive variables in samples dataframe separated by '|'.     Ex. 'sex' or 'sex|batch'
+#      4: int_name:      (Optional) A string with interactive variables in samples dataframe separated by '|'.     Ex. 'sex' or 'sex|batch'. 'NA' or 'na' if not used
 #      5: num_cores:     Number of cores to run
-#      6: chunk_number:  Numeric value of the chunk number. Can be left blank
-#      7: chunk_size:    Numeric value of chunk size. Should be consistent. Can be left blank
+#      6: chunk_number:  (Optional) Numeric value of the chunk number. 'NA' or 'na' if not used
+#      7: chunk_size:    (Optional) Numeric value of chunk size. Should be consistent. 'NA' or 'na' if not used
 #
 #   Output: 
 #       1: Matrix containing LOD scoress for each of the phenotype that was given to scan1 at each marker.
@@ -85,7 +85,7 @@ num_cores <- as.numeric(num_cores)
 
 # Get covariate and samples matrix
 covar   <- ds$covar
-samples <- ds$samples
+
 
 
 
@@ -101,7 +101,9 @@ samples <- ds$samples
 
 ### Get interactive matrix
 if(!int_term %in% c('NA','na')){
-   
+    
+   # Get samples dataframe 
+   samples <- ds$samples
    stopifnot(strsplit(int_term, split = '|', fixed = TRUE)[[1]] %in% colnames(samples))
    
    int_covar <- covar[,grep(int_term, colnames(covar)), drop = FALSE]
