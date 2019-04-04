@@ -350,6 +350,9 @@ results <- results %>%
 
 
 
+
+
+### Add LOD drop proportion
 results$mediation.dp <- (results$target.lod - results$mediation.lod) / results$target.lod
 results$inverse.dp   <- (results$mediator.lod - results$inverse.lod) / results$mediator.lod
 
