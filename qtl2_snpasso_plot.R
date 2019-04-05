@@ -11,9 +11,9 @@
 #       4: dataset:     Which dataset in the qtl viewer to use
 #       5: type_expr:   Which expression dataset to use
 #       6: type_peak:   Which lod.peaks data frame to use
-#       7: perm_result: (Optional) Permutation Matrix as outputted by scan1perm
-#       8: alpha:       (Optional) but needed if given perm_result, see summary_scan1perm. Will subset peaks table to LOD scores above its alpha
-#       9: threshold:   (Optional) If given, this will subset peaks table based on LOD score.
+#       7: perm_result: (Optional) Permutation Matrix as outputted by scan1perm. 'NA' or 'na' if not used.
+#       8: alpha:       (Optional) but needed if given perm_result, see summary_scan1perm. Will subset peaks table to LOD scores above its alpha. 'NA' or 'na' if not used.
+#       9: threshold:   (Optional) If given, this will subset peaks table based on LOD score. 'NA' or 'na' if not used.
 #      10: pdf_file:    Name for the .pdf file to save
 #
 #
