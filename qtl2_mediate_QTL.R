@@ -63,10 +63,10 @@ lod.peaks  <- get(targ_dataset)$lod.peaks[[type_peak]]
 
 
 ### Making sure names match
-stopifnot(colnames(targ_expr) == targ_annot$id)
-stopifnot(colnames(med_expr)  == med_annot$id)
-stopifnot(rownames(targ_expr) == rownames(med_expr))
-stopifnot(rownames(med_expr) == rownames(targ_covar))
+stopifnot(colnames(targ_expr)  == targ_annot$id)
+stopifnot(colnames(med_expr)   == med_annot$id)
+stopifnot(rownames(targ_expr)  == rownames(med_expr))
+stopifnot(rownames(med_expr)   == rownames(targ_covar))
 stopifnot(rownames(targ_covar) == rownames(med_covar))
 
 
@@ -155,7 +155,7 @@ results <- data.frame(target.id     = lod.peaks$annot.id,
 
 
 
-### For each distal QTL...
+### For each QTL...
 for(i in 1:nrow(results)){
     
   
