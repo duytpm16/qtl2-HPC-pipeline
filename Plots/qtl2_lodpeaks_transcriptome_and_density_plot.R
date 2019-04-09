@@ -2,6 +2,8 @@
 #
 #   This script is used to generate a 3-panel plot including transcriptome, cis QTL, and distal QTL density plots.
 #
+#   Note*:
+#       Install 'cowplots' package (install.packages('cowplot')) but do not load!
 #
 #
 #   Input:
