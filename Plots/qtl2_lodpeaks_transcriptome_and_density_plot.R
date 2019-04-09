@@ -1,3 +1,35 @@
+####################################################################################################################
+#
+#   This script is used to generate a 3-layer transcriptome, cis QTL density, and distal QTL density plots.
+#
+#
+#
+#   Input:
+#       1: viewer_data: Path to qtl viewer .RData 
+#       2: lod.peaks:   Path to cc_variant.sqlite file
+#       3: mgi_genes:   Path to mouse_genes_mgi.sqlite file
+#       4: dataset:     Which dataset in the qtl viewer to use
+#       5: type_expr:   Which expression dataset to use
+#       6: type_peak:   Which lod.peaks data frame to use
+#       7: perm_result: (Optional) Permutation Matrix as outputted by scan1perm. 'NA' or 'na' if not used.
+#       8: alpha:       (Optional) but needed if given perm_result, see summary_scan1perm. Will subset peaks table to LOD scores above its alpha. 'NA' or 'na' if not used.
+#       9: threshold:   (Optional) If given, this will subset peaks table based on LOD score. 'NA' or 'na' if not used.
+#      10: pdf_file:    Name for the .pdf file to save
+#
+#
+#   Output: 
+#       1: Pdf file of all SNP Association plot for each QTL
+#
+#
+#
+#
+#   Authors: Duy Pham
+#   Date:    April 5, 2019
+#   E-mails: duy.pham@jax.org
+####################################################################################################################
+
+
+
 ### Options and Libraries
 options(stringsAsFactors = FALSE)
 library(tidyverse)
@@ -11,8 +43,9 @@ library(data.table)
 
 
 ### Variables to change
-#load("munger_esc_proteomics_qtl_viewer.RData")
-lod.peaks <- dataset.esc.proteins$lod.peaks$additive
+viewer_data <- "munger_esc_proteomics_qtl_viewer.RData"
+dataset     <- 'dataset.esc.proteins'
+type_peak   <- 'additive'
 slide  <- 1
 window <- 4
 lod.thres <- 7
@@ -24,7 +57,9 @@ dis_color <- 'blue'
 
 
 
-### Filtering lod.peaks table
+
+### Get and filter lod.peaks table
+lod.peaks    <- get(dataset)[['lod.peaks']][[type_peak]]
 lod.peaks    <- lod.peaks[lod.peaks$lod > lod.thres,]
 lod.peaks    <- lod.peaks[complete.cases(lod.peaks),]
 lod.peaks    <- lod.peaks[lod.peaks$gene.chr %in% c(1:19,'X'),]
