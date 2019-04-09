@@ -60,7 +60,8 @@ dis_color <- 'blue'
 
 
 
-### Get and filter lod.peaks table
+### Get data and filter lod.peaks table
+load(viewer_data)
 lod.peaks    <- get(dataset)[['lod.peaks']][[type_peak]]
 lod.peaks    <- lod.peaks[lod.peaks$lod > lod.thres,]
 lod.peaks    <- lod.peaks[complete.cases(lod.peaks),]
