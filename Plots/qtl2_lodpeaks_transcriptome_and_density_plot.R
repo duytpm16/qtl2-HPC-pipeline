@@ -1,30 +1,30 @@
 ####################################################################################################################
 #
-#   This script is used to generate a 3-layer transcriptome, cis QTL density, and distal QTL density plots.
+#   This script is used to generate a 3-panel plot including transcriptome, cis QTL, and distal QTL density plots.
 #
 #
 #
 #   Input:
-#       1: viewer_data: Path to qtl viewer .RData 
-#       2: lod.peaks:   Path to cc_variant.sqlite file
-#       3: mgi_genes:   Path to mouse_genes_mgi.sqlite file
-#       4: dataset:     Which dataset in the qtl viewer to use
-#       5: type_expr:   Which expression dataset to use
-#       6: type_peak:   Which lod.peaks data frame to use
-#       7: perm_result: (Optional) Permutation Matrix as outputted by scan1perm. 'NA' or 'na' if not used.
-#       8: alpha:       (Optional) but needed if given perm_result, see summary_scan1perm. Will subset peaks table to LOD scores above its alpha. 'NA' or 'na' if not used.
-#       9: threshold:   (Optional) If given, this will subset peaks table based on LOD score. 'NA' or 'na' if not used.
-#      10: pdf_file:    Name for the .pdf file to save
+#       1: viewer_data:   Path to qtl viewer .RData 
+#       2: dataset:       Which dataset to pull lod.peaks table
+#       3: type_peak:     Which dataframe to pull from lod.peaks list
+#       4: dataset:       Which dataset in the qtl viewer to use
+#       5: slide:         How much to slide across genome
+#       6: window:        Window to count QTLs
+#       7: lod_thres:     Threshold to filter LOD scores in lod.peaks table
+#       8: density_thres: Y-axis value for horizontal line in density plots      
+#       9: cis_color:     Color for local QTLs
+#      10: dis_color:     Color for distal QTLs
 #
 #
 #   Output: 
-#       1: Pdf file of all SNP Association plot for each QTL
+#       1: 3-panel plot showing transcriptome of LOD scores, distal QTL density, and cis QTL density
 #
 #
 #
 #
 #   Authors: Duy Pham
-#   Date:    April 5, 2019
+#   Date:    April 9, 2019
 #   E-mails: duy.pham@jax.org
 ####################################################################################################################
 
