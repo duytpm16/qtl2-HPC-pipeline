@@ -7,7 +7,7 @@
 # type_peak:    Which LOD summary table to use in lod.peaks list in dataset.*
 # med_method:   See 'method' parameter in intermediate package by Petr Simecek
 # z_thres:      Z-score cut-off. Remove mediators that do not drop LOD score below z_thres. Should be negative value
-# pos_thes:     Keep mediators that are within pos_thres of the QTL
+# pos_thes:     Keep mediators that are within some Mbp of the QTL
 # cores:        Number of cores
 # filename:     Name to save results
 # chunk_size:   Chunk size. Should be consistent.
