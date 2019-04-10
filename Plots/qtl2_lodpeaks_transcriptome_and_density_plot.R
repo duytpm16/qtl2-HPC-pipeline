@@ -10,17 +10,17 @@
 #       1: viewer_data:   Path to qtl viewer .RData 
 #       2: dataset:       Which dataset to pull lod.peaks table
 #       3: type_peak:     Which dataframe to pull from lod.peaks list
-#       4: dataset:       Which dataset in the qtl viewer to use
-#       5: slide:         How much to slide across genome
-#       6: window:        Window to count QTLs
-#       7: lod_thres:     Threshold to filter LOD scores in lod.peaks table
-#       8: density_thres: Y-axis value for horizontal line in density plots      
-#       9: cis_color:     Color for local QTLs
-#      10: dis_color:     Color for distal QTLs
+#       4: slide:         How much to slide across genome
+#       5: window:        Window to count QTLs
+#       6: lod_thres:     Threshold to filter LOD scores in lod.peaks table
+#       7: density_thres: Y-axis value for horizontal line in density plots      
+#       8: cis_color:     Color for local QTLs
+#       9: dis_color:     Color for distal QTLs
 #
 #
 #   Output: 
-#       1: 3-panel plot showing transcriptome of LOD scores, distal QTL density, and cis QTL density
+#       1: 3-panel plot showing transcriptome of LOD scores (gene location by QTL location), 
+#           distal QTL density, and cis QTL density
 #
 #
 #
