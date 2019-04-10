@@ -173,7 +173,7 @@ for(i in 1:nrow(results)){
     
     
     
-    # Do mediation scan on target at distal QTL against all mediators
+    # Do mediation scan on target at QTL against all mediators
     med <- mediation.scan(target     = targ_expr[, target, drop = FALSE],
                           mediator   = med_expr,
                           annotation = med_annot,
@@ -231,7 +231,7 @@ for(i in 1:nrow(results)){
        
        
     
-       # Comptue LOD score at QTL marker for mediators
+       # Compute LOD score at QTL marker for mediators
        gp      <- genoprobs[,qtl.chr]
        gp[[1]] <- gp[[1]][rownames(targ_expr),,marker, drop = FALSE]  
        mediator.qtl <- scan1(genoprobs = gp, 
