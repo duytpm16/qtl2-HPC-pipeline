@@ -154,10 +154,24 @@ if(!is.null(drop)){
 
 
 
+### Check if all marker id are present in markers data frame
+#  If not, replace with closest marker
+if(!all(peaks$marker.id %in% markers$marker)){
+	
+   index <- which(!peaks$marker.id %in% markers$marker))
+   
+   for(i in index){
 
+       sub_markers <- subset(markers, chr == peaks$qtl.chr[i])
+       sub_markers <- sub_markers[which.min(abs(sub_markers$pos - peaks$qtl.pos[i])),]
+	
+       peaks$qtl.chr[i] <- sub_markers$chr
+       peaks$qtl.pos[i] <- sub_markers$pos
+       peaks$marker.id[i] <- sub_markers$marker
+	   
+   }
 
-
-
+}
 
 
 
@@ -165,7 +179,7 @@ if(!is.null(drop)){
 
 ### BLUP scan at each QTL if additive
 if(type_scan == 'additive'){
-
+   stopifnot(all(qtl$marker.id %in% markers$marker))
    stopifnot(c('K','genoprobs') %in% ls())
   
    peaks = cbind(peaks, matrix(0, nrow = nrow(peaks), ncol = 8,
