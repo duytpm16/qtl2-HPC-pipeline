@@ -126,7 +126,7 @@ for(i in 1:nrow(peaks)){
                          map        = map,
                          pheno      = expr[,peaks$annot.id[i]],
                          kinship    = K,
-                         addcovar   = dataset.doma.microbiome$covar,
+                         addcovar   = covar,
                          query_func = query_variant,
                          chr        = peaks$qtl.chr[i],
                          start      = peaks$qtl.pos[i] - 5,
