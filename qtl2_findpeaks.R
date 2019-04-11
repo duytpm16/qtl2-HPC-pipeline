@@ -172,7 +172,6 @@ if(type_scan == 'additive'){
                                dimnames = list(NULL, LETTERS[1:8])))
    expr  = ds[[type_data]]
    covar = ds$covar
-   peaks = peaks[peaks$marker.id %in% markers$marker,]
    
 
    for(i in 1:nrow(peaks)){
