@@ -158,7 +158,7 @@ if(!is.null(drop)){
 #  If not, replace with closest marker
 if(!all(peaks$marker.id %in% markers$marker)){
 	
-   index <- which(!peaks$marker.id %in% markers$marker))
+   index <- which(!peaks$marker.id %in% markers$marker)
    
    for(i in index){
 
