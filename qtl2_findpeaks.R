@@ -73,12 +73,22 @@ num_cores <- as.numeric(num_cores)
 
 
 
+
+
+
+
 ### Get drop for find_peaks
 if(!drop %in% c('NA','na')){
     drop <- as.numeric(drop)
 }else{
     drop <- NULL
 }
+
+
+
+
+
+
 
 
 
@@ -123,6 +133,7 @@ peaks <- find_peaks(scan1_mat,
 
 
 
+
 ### Formatting for QTL Viewer
 if(!is.null(drop)){
 
@@ -154,6 +165,12 @@ if(!is.null(drop)){
 
 
 
+
+
+
+
+
+
 ### Check if all marker id are present in markers data frame
 #  If not, replace with closest marker
 if(!all(peaks$marker.id %in% markers$marker)){
@@ -172,6 +189,13 @@ if(!all(peaks$marker.id %in% markers$marker)){
    }
 
 }
+
+
+
+
+
+
+
 
 
 
