@@ -17,8 +17,7 @@
 #
 #   Input:
 #      1: input.file:    Path to the qtl viewer .RData 
-#      2: dataset:       Which dataset.* to use
-#      3: type_data:     Which form of the expression data to use. Ex. 'norm' or 'rankz'
+#      2: dataset_expr:  Which dataset.* and data type to use. Ex. dataset.islet.proteins$data (if only one expression matrix) or dataset.islet.proteins$data$rz (if there are different expression matrices in 'data')
 #      4: int_name:      (Optional) A string with interactive variables in samples dataframe separated by '|'.     Ex. 'sex' or 'sex|batch'. 'NA' or 'na' if not used
 #      5: num_cores:     Number of cores to run
 #      6: chunk_number:  (Optional) Numeric value of the chunk number. 'NA' or 'na' if not used
@@ -104,7 +103,7 @@ if(length(dataset_expr) == 3){
 
 
 # Get covariate matrix and make num_cores numeric
-covar   <- ds$covar.matrix
+covar     <- ds$covar.matrix
 num_cores <- as.numeric(num_cores)
 
 
