@@ -16,13 +16,13 @@ module load R/3.5.1
 
 
 viewer_data='munger_esc_viewer_174_v3.RData'
-dataset_expr='dataset.esc.proteins$data$rz'
+dataset_expr='dataset.esc.proteins|data|rz'
 num_cores='8'
 int_name='NA'
 chunk_number=${i}
 chunk_size=40
 
 
-Rscript qtl2_scan1.R viewer_data=\$viewer_data dataset=\$dataset num_cores=\$num_cores type_scan=\$type_scan type_data=\$type_data int_name=\$int_name chunk_number=\$chunk_number chunk_size=\$chunk_size" >> "${job_name}_${i}.sh"
+Rscript qtl2_scan1.R viewer_data=\$viewer_data dataset_expr=\$dataset_expr num_cores=\$num_cores type_scan=\$type_scan type_data=\$type_data int_name=\$int_name chunk_number=\$chunk_number chunk_size=\$chunk_size" >> "${job_name}_${i}.sh"
 qsub "${job_name}_${i}.sh"
 done
