@@ -68,24 +68,44 @@ if(length(args)==0){
 
 
 
+
+
 ### Load viewer data
 load(viewer_data)
 
 
 
+
+
+
+
+
+
+
 ### Check to see if required data are loaded in global environment
-stopifnot(c("genoprobs", "K", dataset) %in% ls())
+dataset_expr <- strsplit(dataset_expr, '$')[[1]]
+stopifnot(c('genoprobs', 'K', dataset_expr[1]) %in% ls())
+
+ds    <- get(dataset_expr[1])
+expr  <- ds[[dataset_expr[2]]]
+
+if(length(dataset_expr) == 3){
+   expr <- expr[[dataset_expr[3]]]
+}
+
+               
 
 
-ds        <- get(dataset)
-expr      <- ds[[type_data]]
-int_term  <- int_name
+
+
+
+
+
+
+
+# Get covariate matrix and make num_cores numeric
+covar   <- ds$covar.matrix
 num_cores <- as.numeric(num_cores)
-
-
-# Get covariate and samples matrix
-covar   <- ds$covar
-
 
 
 
@@ -100,13 +120,13 @@ covar   <- ds$covar
 
 
 ### Get interactive matrix
-if(!int_term %in% c('NA','na')){
+if(!int_name %in% c('NA','na')){
     
    # Get samples dataframe 
-   samples <- ds$samples
-   stopifnot(strsplit(int_term, split = '|', fixed = TRUE)[[1]] %in% colnames(samples))
+   samples <- ds$annot.samples
+   stopifnot(strsplit(int_name, split = '|', fixed = TRUE)[[1]] %in% colnames(samples))
    
-   int_covar <- covar[,grep(int_term, colnames(covar)), drop = FALSE]
+   int_covar <- covar[,grep(int_name, colnames(covar)), drop = FALSE]
    print(int_covar) 
 }else{
 
@@ -116,6 +136,20 @@ if(!int_term %in% c('NA','na')){
 
 
 print(int_covar)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ### Run qtl scan on a subset on a subset of the expr matrix if chunk_size and chunk_number is given
@@ -147,6 +181,12 @@ if(!chunk_number %in% c('NA','na')){
 
 
 
+
+
+
+
+
+
 ### qtl2 scan1 
 scan1_output <- scan1(genoprobs = genoprobs, 
                       pheno     = expr[,pheno.rng,drop = FALSE],
@@ -165,10 +205,17 @@ scan1_output <- scan1(genoprobs = genoprobs,
 
 
 
+
+
+
+
+
+
+
 ### Save scan1 output
-output_file <- sub('dataset.', '', dataset, fixed = TRUE)
+output_file <- sub('dataset.', '', ds, fixed = TRUE)
 output_file <- sub('.', '_', output_file, fixed = TRUE)
-output_int  <- gsub('|','_',int_term, fixed = TRUE)
+output_int  <- gsub('|','_',int_name, fixed = TRUE)
 
 
 if(int_term == 'NA'){
