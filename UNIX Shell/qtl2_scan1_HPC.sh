@@ -16,9 +16,8 @@ module load R/3.5.1
 
 
 viewer_data='munger_esc_viewer_174_v3.RData'
-dataset='dataset.esc.proteins'
+dataset_expr='dataset.esc.proteins$data$rz'
 num_cores='8'
-type_data='rankz'
 int_name='NA'
 chunk_number=${i}
 chunk_size=40
