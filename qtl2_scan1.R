@@ -85,7 +85,7 @@ load(viewer_data)
 
 
 ### Check to see if required data are loaded in global environment
-dataset_expr <- strsplit(dataset_expr, '|')[[1]]
+dataset_expr <- strsplit(dataset_expr, '|',fixed = TRUE)[[1]]
 
 stopifnot(c('genoprobs', 'K', dataset_expr[1]) %in% ls())
 
