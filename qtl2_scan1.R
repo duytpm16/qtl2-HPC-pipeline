@@ -17,11 +17,11 @@
 #
 #   Input:
 #      1: input.file:    Path to the qtl viewer .RData 
-#      2: dataset_expr:  Which dataset.* and data type to use. Ex. dataset.islet.proteins$data (if only one expression matrix) or dataset.islet.proteins$data$rz (if there are different expression matrices in 'data')
-#      4: int_name:      (Optional) A string with interactive variables in samples dataframe separated by '|'.     Ex. 'sex' or 'sex|batch'. 'NA' or 'na' if not used
-#      5: num_cores:     Number of cores to run
-#      6: chunk_number:  (Optional) Numeric value of the chunk number. 'NA' or 'na' if not used
-#      7: chunk_size:    (Optional) Numeric value of chunk size. Should be consistent. 'NA' or 'na' if not used
+#      2: dataset_expr:  Which dataset.* and data type to use. Ex. dataset.islet.proteins$data (if only one expression matrix) or dataset.islet.proteins$data$rz (if there are multiple expression matrices in 'data')
+#      3: int_name:      (Optional) A string with interactive variables in samples dataframe separated by '|'.     Ex. 'sex' or 'sex|batch'. 'NA' or 'na' if not used
+#      4: num_cores:     Number of cores to run
+#      5: chunk_number:  (Optional) Numeric value of the chunk number. 'NA' or 'na' if not used
+#      6: chunk_size:    (Optional) Numeric value of chunk size. Should be consistent. 'NA' or 'na' if not used
 #
 #   Output: 
 #       1: Matrix containing LOD scoress for each of the phenotype that was given to scan1 at each marker.
@@ -45,13 +45,12 @@ library(qtl2)
 
 
 ### Command line arguments / Variables to change
-# 1: input.file:    Path to the qtl viewer .RData 
-# 2: dataset:       Which dataset.* to use
-# 3: type_data:     Which form of the expression data to use. Ex. 'norm' or 'rankz'
-# 4: int_name:      A string with interactive variables in samples dataframe separated by '|'.     Ex. 'sex' or 'sex|batch'
-# 5: num_cores:     Number of cores to run
-# 6: chunk_number:  Numeric value of the chunk number. Can be left blank
-# 7: chunk_size:    Numeric value of chunk size. Should be consistent. Can be left blank
+# 1: input.file:   Path to the qtl viewer .RData 
+# 2: dataset_expr:   Which dataset.* and data type to use. Ex. dataset.islet.proteins$data (if only one expression matrix) or dataset.islet.proteins$data$rz (if there are multiple expression matrices in 'data')
+# 3: int_name:     A string with interactive variables in samples dataframe separated by '|'.     Ex. 'sex' or 'sex|batch'
+# 4: num_cores:    Number of cores to run
+# 5: chunk_number: Numeric value of the chunk number. Can be left blank
+# 6: chunk_size:   Numeric value of chunk size. Should be consistent. Can be left blank
 args <- commandArgs(trailingOnly = TRUE)
 print(args)
 if(length(args)==0){
@@ -62,6 +61,9 @@ if(length(args)==0){
         assign(a[1],a[2])
     }
 }
+
+
+
 
 
 
@@ -81,8 +83,10 @@ load(viewer_data)
 
 
 
+
 ### Check to see if required data are loaded in global environment
 dataset_expr <- strsplit(dataset_expr, '$')[[1]]
+
 stopifnot(c('genoprobs', 'K', dataset_expr[1]) %in% ls())
 
 ds    <- get(dataset_expr[1])
@@ -151,7 +155,7 @@ print(int_covar)
 
 
 
-### Run qtl scan on a subset on a subset of the expr matrix if chunk_size and chunk_number is given
+### Run qtl scan on a subset of the expr matrix if chunk_size and chunk_number is given
 pheno.rng <- 1:ncol(expr)
 
 if(!chunk_number %in% c('NA','na')){
