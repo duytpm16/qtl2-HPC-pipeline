@@ -254,9 +254,8 @@ if(type_scan == 'additive'){
 if((ds$datatype %in% c('mRNA', 'protein'))){
 
    id = if(ds$datatype == 'mRNA') 'gene_id' else 'protein_id'
-   
-
-   annots <- ds$annots
+   annots = if(ds$datatype == 'mRNA') 'annots.mrna' else 'annots.protein'
+   annots <- ds[[annots]]
    peaks  <- merge(peaks, annots[,c(id,'chr','start','end','symbol')], by.x='annot.id',by.y = id, all.x = TRUE)
 
   
