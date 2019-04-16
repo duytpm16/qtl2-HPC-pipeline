@@ -6,7 +6,7 @@ module load R/3.5.1
 
 viewer_data='munger_esc_viewer_173_v3.RData'
 scan1_mat='munger_esc_proteins_additive_qtl_lod_v3.rds'
-dataset_expr='dataset.esc.proteins'
+dataset_expr='dataset.esc.proteins$data$rz'
 thr='6'
 num_cores='8'
 type_scan='additive'
