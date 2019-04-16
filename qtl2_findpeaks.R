@@ -77,7 +77,7 @@ num_cores <- as.numeric(num_cores)
 
 
 
-### Get drop for find_peaks
+### Get confidence intervals for find_peaks
 if(!drop %in% c('NA','na')){
     drop <- as.numeric(drop)
 }else{
