@@ -7,7 +7,7 @@
 #   Input:
 #       1: viewer_data:  Path to qtl viewer .RData 
 #       2: scan1:        Path to scan1 matrix outputted from scan1 function as .rds (LOD matrix)
-#       3: dataset_expr: Which dataset.* and data type to use. Ex. dataset.islet.proteins$data (if only one expression matrix) or dataset.islet.proteins$data$rz (if there are multiple expression matrices in 'data')
+#       3: dataset_expr: Which dataset.* and data type to use. Ex. dataset.islet.proteins|data (if only one expression matrix) or dataset.islet.proteins|data|rz (if there are multiple expression matrices in 'data')
 #       4: thr:          See thre parameter in find_peaks function.
 #       5: num_cores:    Number of cores to run
 #       6: type_scan:    Type of scan. Ex. 'additive', 'sex_int', 'age_int'...
