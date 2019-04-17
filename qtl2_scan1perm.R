@@ -70,11 +70,28 @@ load(viewer_data)
 
 
 ### Check to see if required data are loaded in global environment
-stopifnot(c("genoprobs", "K", dataset) %in% ls())
-print(ls())
+dataset_expr <- strsplit(dataset_expr, '|',fixed = TRUE)[[1]]
+print(dataset_expr)
+stopifnot(c('genoprobs', 'K', dataset_expr[1]) %in% ls())
 
-ds        <- get(dataset)
-expr      <- ds[[type_data]]
+ds    <- get(dataset_expr[1])
+expr  <- ds[[dataset_expr[2]]]
+
+if(length(dataset_expr) == 3){
+   expr <- expr[[dataset_expr[3]]]
+}
+
+
+
+
+
+
+
+
+
+
+
+
 int_term  <- int_name
 num_cores <- as.numeric(num_cores)
 perm_run  <- as.numeric(perm_run)
@@ -177,7 +194,7 @@ scan1_output <- scan1perm(genoprobs = genoprobs,
 
 
 ### Save scan1 output
-output_file <- sub('dataset.', '', dataset, fixed = TRUE)
+output_file <- sub('dataset.', '', dataset_expr[1], fixed = TRUE)
 output_file <- sub('.', '_', output_file, fixed = TRUE)
 output_int  <- gsub('|','_',int_term, fixed = TRUE)
 
@@ -197,4 +214,4 @@ if(int_term == 'NA'){
       saveRDS(scan1_output, paste0(output_file, '_', output_int, '_perm_int_scan_chunk_', chunk_number,'.rds'))
    }
 }
-              
+

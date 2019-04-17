@@ -216,12 +216,12 @@ scan1_output <- scan1(genoprobs = genoprobs,
 
 
 ### Save scan1 output
-output_file <- sub('dataset.', '', ds, fixed = TRUE)
+output_file <- sub('dataset.', '', dataset_expr[1], fixed = TRUE)
 output_file <- sub('.', '_', output_file, fixed = TRUE)
 output_int  <- gsub('|','_',int_name, fixed = TRUE)
 
 
-if(int_term == 'NA'){
+if(int_name == 'NA'){
    if(chunk_number == 'NA'){
       saveRDS(scan1_output, paste0(output_file, '_additive_scan.rds'))
    }else{

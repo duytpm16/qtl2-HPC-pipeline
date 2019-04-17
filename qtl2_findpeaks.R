@@ -61,7 +61,7 @@ if(length(args)==0){
 load(viewer_data)
 
 
-dataset_expr <- strsplit(dataset_expr, '$')[[1]]
+dataset_expr <- strsplit(dataset_expr, '|', fixed = TRUE)[[1]]
 
 stopifnot(c('map', dataset_expr[1]) %in% ls())
 
@@ -254,7 +254,7 @@ if(type_scan == 'additive'){
 if((ds$datatype %in% c('mRNA', 'protein'))){
 
    id = if(ds$datatype == 'mRNA') 'gene_id' else 'protein_id'
-   annots = if(ds$datatype == 'mRNA') 'annots.mrna' else 'annots.protein'
+   annots = if(ds$datatype == 'mRNA') 'annot.mrna' else 'annot.protein'
    annots <- ds[[annots]]
    peaks  <- merge(peaks, annots[,c(id,'chr','start','end','symbol')], by.x='annot.id',by.y = id, all.x = TRUE)
 
@@ -320,7 +320,7 @@ colnames(peaks)[1] <- annot.id
 
 ### Save peaks to data
 ds$lod.peaks[[type_scan]] <- peaks
-assign(dataset, ds)
+assign(dataset_expr[1], ds)
 
 
 
@@ -332,7 +332,7 @@ assign(dataset, ds)
 
 
 ### Save to .RData file
-save(list = ls()[ls() %in% c(grep('dataset.', ls(), value = TRUE),
+save(list = ls()[ls() %in% c(grep('dataset[.]', ls(), value = TRUE),
                                   'K',
                                   'genoprobs',
                                   'map',
