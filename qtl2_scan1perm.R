@@ -17,7 +17,7 @@
 #
 #   Input:
 #      1: input.file:    Path to the qtl viewer .RData 
-#      2: dataset:       Which dataset.* to use
+#      2: dataset_expr:  Which dataset.* and data type to use. Ex. dataset.islet.proteins|data (if only one expression matrix) or dataset.islet.proteins|data|rz (if there are multiple expression matrices in 'data')
 #      3: int_name:      (Optional) A string with interactive variables in samples dataframe separated by '|'. Ex. 'sex' or 'sex|batch'. 'NA' or 'na' if not used
 #      4: num_cores:     Number of cores to run
 #      5: chunk_number:  (Optional) Numeric value of the chunk number. 'NA' or 'na' if not used
