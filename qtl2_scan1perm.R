@@ -121,7 +121,7 @@ covar   <- ds$covar
 if(!int_term %in% c('NA','na')){
  
    # Get samples dataframe
-   samples <- ds$samples
+   samples <- ds$annot.samples
    stopifnot(strsplit(int_term, split = '|', fixed = TRUE)[[1]] %in% colnames(samples))
 
    int_covar <- covar[,grep(int_term, colnames(covar)), drop = FALSE]
