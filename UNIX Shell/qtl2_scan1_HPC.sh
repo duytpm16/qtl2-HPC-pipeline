@@ -11,6 +11,7 @@ for i in {1..79}
 do
   echo "#PBS -l nodes=1:ppn=8
 #PBS -q batch
+#PBS -l walltime=72:00:00
 
 module load R/3.5.1
 
