@@ -34,23 +34,42 @@ load(viewer_data)
 z_thres      <- as.numeric(z_thres)
 pos_thres    <- as.numeric(pos_thres)
 cores        <- as.numeric(cores)
-
-
-
+targ_dataset_expr <- strsplit(targ_dataset_expr, '|',fixed = TRUE)[[1]]
+med_dataset_expr  <- strsplit(med_dataset_expr, '|',fixed = TRUE)[[1]]
+stopifnot(c('genoprobs', 'K', targ_dataset_expr[1], med_dataset_expr[1]) %in% ls())
+targ_dataset <- targ_dataset_expr[1]
+med_dataset  <- med_dataset_expr[1]
 
 
 
 
 
 ### Extract rankZ, annotation, covariate data, and target's lod.peaks table
-targ_annot <- get(targ_dataset)$annots %>% dplyr::rename(id = targ_id, pos = start) %>% mutate(chr = as.character(chr))
-med_annot  <- get(med_dataset)$annots %>% dplyr::rename(id = med_id, pos = start) %>% mutate(chr = as.character(chr))
+targ_annot <- get(targ_dataset)[['targ_annot']] %>% dplyr::rename(id = targ_id, pos = start) %>% mutate(chr = as.character(chr))
+med_annot  <- get(med_dataset)[['med_annot']] %>% dplyr::rename(id = med_id, pos = start) %>% mutate(chr = as.character(chr))
 
-targ_expr  <- get(targ_dataset)[[expr_type]][, targ_annot$id]
-med_expr   <- get(med_dataset)[[expr_type]][rownames(targ_expr), med_annot$id]
 
-targ_covar <- get(targ_dataset)$covar[rownames(targ_expr),]
-med_covar  <- get(med_dataset)$covar[rownames(targ_expr),]
+
+targ_expr <- get(targ_dataset)[[targ_dataset_expr[1]]]
+med_expr  <- get(med_dataset)[[med_dataset_expr[1]]]
+
+if(length(targ_dataset_expr) == 3){
+   targ_expr <- targ_expr[[targ_dataset_expr[3]]][,targ_annot$id]
+}
+
+if(length(med_dataset_expr) == 3){
+   med_expr <- med_expr[[med_dataset_expr[3]]][rownames(targ_expr),med_annot$id] 
+}else{
+   med_expr <- med_expr[rownames(targ_expr),med_annot$id] 
+}
+
+
+targ_covar <- get(targ_dataset)$covar.matrix[rownames(targ_expr),]
+med_covar  <- get(med_dataset)$covar.matrix[rownames(targ_expr),]
+
+
+
+
 
 lod.peaks  <- get(targ_dataset)$lod.peaks[[type_peak]]
 
