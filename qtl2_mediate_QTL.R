@@ -45,8 +45,8 @@ med_dataset  <- med_dataset_expr[1]
 
 
 ### Extract rankZ, annotation, covariate data, and target's lod.peaks table
-targ_annot <- get(targ_dataset)[['targ_annot']] %>% dplyr::rename(id = targ_id, pos = start) %>% mutate(chr = as.character(chr))
-med_annot  <- get(med_dataset)[['med_annot']] %>% dplyr::rename(id = med_id, pos = start) %>% mutate(chr = as.character(chr))
+targ_annot <- get(targ_dataset)[[targ_annot]] %>% dplyr::rename(id = targ_id, pos = start) %>% mutate(chr = as.character(chr))
+med_annot  <- get(med_dataset)[[med_annot]] %>% dplyr::rename(id = med_id, pos = start) %>% mutate(chr = as.character(chr))
 
 
 
