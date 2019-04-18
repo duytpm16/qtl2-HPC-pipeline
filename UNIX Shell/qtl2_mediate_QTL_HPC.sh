@@ -36,11 +36,12 @@ module load R/3.5.1
 
 
 viewer_data='attie_islet_284_qtl_viewer_v2.RData'
-targ_dataset='dataset.islet.proteins.284'
-med_dataset='dataset.islet.mrna.284'
+targ_dataset_expr='dataset.islet.proteins.284|data|rz'
+med_dataset_expr='dataset.islet.mrna.284|data|rz'
 targ_id='protein_id'
 med_id='gene_id'
-expr_type='rankz'
+targ_annot='annot.protein'
+med_annot='annot.mrna'
 type_peak = 'additive'
 med_method='double-lod-diff'
 z_thres='-4'
