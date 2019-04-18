@@ -50,8 +50,8 @@ med_annot  <- get(med_dataset)[[med_annot]] %>% dplyr::rename(id = med_id, pos =
 
 
 
-targ_expr <- get(targ_dataset)[[targ_dataset_expr[1]]]
-med_expr  <- get(med_dataset)[[med_dataset_expr[1]]]
+targ_expr <- get(targ_dataset)[[targ_dataset_expr[2]]]
+med_expr  <- get(med_dataset)[[med_dataset_expr[2]]]
 
 if(length(targ_dataset_expr) == 3){
    targ_expr <- targ_expr[[targ_dataset_expr[3]]][,targ_annot$id]
