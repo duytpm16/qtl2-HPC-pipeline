@@ -130,7 +130,7 @@ lod.peaks <- lod.peaks[targ_rng,]
 ### Create vectors to store the data
 #     Initialize empty vectors to store info
 n <- nrow(lod.peaks)
-results <- data.frame(target.id     = lod.peaks$annot.id,
+results <- data.frame(target.id     = lod.peaks[,targ_id],
                       target.symbol = lod.peaks$gene.symbol,
                       target.chr    = lod.peaks$gene.chr,
                       target.start  = lod.peaks$gene.start,
