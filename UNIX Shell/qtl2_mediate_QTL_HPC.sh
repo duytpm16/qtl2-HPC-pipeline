@@ -51,13 +51,14 @@ cores='8'
 filename='attie_islet_proteins_distal_pQTL_mediation'
 chunk_number=${i}
 chunk_size='100'
+qtl_pos_name='qtl.pos'
 
 
 
 
 
 
-Rscript qtl2_mediate_QTL.R viewer_data=\$viewer_data targ_dataset_expr=\$targ_dataset_expr med_dataset_expr=\$med_dataset_expr targ_id=\$targ_id med_id=\$med_id targ_annot=\$targ_annot med_annot=\$med_annot type_peak=\$type_peak med_method=\$med_method z_thres=\$z_thres pos_thres=\$pos_thres cores=\$cores filename=\$filename chunk_number=\$chunk_number chunk_size=\$chunk_size" >> "${job_name}_${i}.sh"
+Rscript qtl2_mediate_QTL.R viewer_data=\$viewer_data targ_dataset_expr=\$targ_dataset_expr med_dataset_expr=\$med_dataset_expr targ_id=\$targ_id med_id=\$med_id targ_annot=\$targ_annot med_annot=\$med_annot type_peak=\$type_peak med_method=\$med_method z_thres=\$z_thres pos_thres=\$pos_thres cores=\$cores filename=\$filename chunk_number=\$chunk_number chunk_size=\$chunk_size qtl_pos_name=\$qtl_pos_name" >> "${job_name}_${i}.sh"
 qsub "${job_name}_${i}.sh"
 done
 
