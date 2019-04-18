@@ -130,13 +130,13 @@ lod.peaks <- lod.peaks[targ_rng,]
 ### Create vectors to store the data
 #     Initialize empty vectors to store info
 n <- nrow(lod.peaks)
-results <- data.frame(target.id     = unname(lod.peaks[,targ_id]),
+results <- data.frame(target.id     = lod.peaks[,targ_id],
                       target.symbol = lod.peaks$gene.symbol,
                       target.chr    = lod.peaks$gene.chr,
                       target.start  = lod.peaks$gene.start,
                       target.end    = lod.peaks$gene.end,
                       qtl.chr       = lod.peaks$qtl.chr,
-                      qtl.pos       = unname(lod.peaks[,qtl_pos_name]),
+                      qtl.pos       = od.peaks[,qtl_pos_name],
                       qtl.marker    = lod.peaks$marker.id,
                       mediator.id   = character(length = n),
                       mediator.symbol = character(length = n),
@@ -158,7 +158,7 @@ results <- data.frame(target.id     = unname(lod.peaks[,targ_id]),
                       inverse.lod     = numeric(length = n),
                       mediation.z     = numeric(length = n),
                       inverse.z       = numeric(length = n))
-
+results <- results %>% rename(targ.id = targ_id, qtl.pos = qtl_pos_name)
 
 
 
