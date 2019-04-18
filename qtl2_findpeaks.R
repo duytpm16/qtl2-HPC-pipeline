@@ -309,7 +309,7 @@ annot.id <- switch(ds$datatype,
 		   'protein'   = 'protein.id',
 		   'mRNA'      = 'gene.id',
 		   'phenotype' = 'data.name')
-colnames(peaks)[1] <- annot.id
+colnames(peaks)[1] <- as_tibble(annot.id)
 
 
 
