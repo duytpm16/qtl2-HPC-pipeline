@@ -1,9 +1,10 @@
 # viewer_data:  path to QTL formatted .RData
-# targ_dataset: dataset.* of the target
-# med_dataset:  dataset.* of the mediator
+# targ_dataset_expr: dataset.* of the target | data | expression matrix name
+# med_dataset_expr:  dataset.* of the mediator | data | expression matrix name
 # targ_id:      target identification in annots data frame: Ex. 'protein_id' or 'gene_id'
 # med_id:       mediator identification in annots data frame: Ex. 'protein_id' or 'gene_id'
-# expr_type:    Which expression matrix to use in the dataset.*
+# targ_annot:   Annotation of the target
+# med_annot:    Annotation of the mediator
 # type_peak:    Which LOD summary table to use in lod.peaks list in dataset.*
 # med_method:   See 'method' parameter in intermediate package by Petr Simecek
 # z_thres:      Z-score cut-off. Remove mediators that do not drop LOD score below z_thres. Should be negative value
@@ -16,7 +17,7 @@
 
 
 
-#PBS -l nodes=1:ppn=8
+#PBS -l nodes=1:ppn=1
 #PBS -l walltime=24:00:00
 
 
