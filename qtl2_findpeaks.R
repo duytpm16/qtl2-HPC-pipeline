@@ -307,7 +307,7 @@ if((ds$datatype %in% c('mRNA', 'protein'))){
 
 annot.id <- switch(ds$datatype,
 		   'protein'   = 'protein.id',
-		   'mRNA'      = 'gene.id',
+		   'mrna'      = 'gene.id',
 		   'phenotype' = 'data.name')
 colnames(peaks)[1] <- as_tibble(annot.id)
 
