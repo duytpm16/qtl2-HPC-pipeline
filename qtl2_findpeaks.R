@@ -264,7 +264,7 @@ if((ds$datatype %in% c('mRNA', 'protein'))){
 			 gene.end=end,
 		         gene.chr=chr,
 			 gene.symbol=symbol) %>% 
-		  mutate(cis = (gene.chr == qtl.chr) & abs(qtl.pos-gene.start) <= 4)
+		  mutate(gene.middle = (gene.start + gene.end)/2, cis = (gene.chr == qtl.chr) & abs(qtl.pos-gene.middle) <= cis_threshold)
 
    print(head(peaks))
 
