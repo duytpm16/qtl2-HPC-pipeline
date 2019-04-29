@@ -154,7 +154,7 @@ if(!is.null(drop)){
                   rename(annot.id  = lodcolumn,
                          qtl.chr   = chr,
                          qtl.pos   = pos,
-                         marker.id = marker,
+                         marker.id = marker.id,
 			 ci.lo     = ci_lo,
 			 ci.hi     = ci_hi) %>%
                	  select(annot.id, marker.id, lod, qtl.chr, qtl.pos, ci.lo, ci.hi)       # Reorder data frame
@@ -166,7 +166,7 @@ if(!is.null(drop)){
                   rename(annot.id  = lodcolumn,
                          qtl.chr   = chr,
                          qtl.pos   = pos,
-                         marker.id = marker) %>%
+                         marker.id = marker.id) %>%
                   select(annot.id, marker.id, lod, qtl.chr, qtl.pos)       # Reorder data frame
 
 
@@ -184,9 +184,9 @@ if(!is.null(drop)){
 
 ### Check if all marker id are present in markers data frame
 #  If not, replace with closest marker
-if(!all(peaks$marker.id %in% markers$marker)){
+if(!all(peaks$marker.id %in% markers$marker.id)){
 	
-   index <- which(!peaks$marker.id %in% markers$marker)
+   index <- which(!peaks$marker.id %in% markers$marker.id)
    
    for(i in index){
 
@@ -195,7 +195,7 @@ if(!all(peaks$marker.id %in% markers$marker)){
 	
        peaks$qtl.chr[i] <- sub_markers$chr
        peaks$qtl.pos[i] <- sub_markers$pos
-       peaks$marker.id[i] <- sub_markers$marker
+       peaks$marker.id[i] <- sub_markers$marker.id
 	   
    }
 
@@ -214,7 +214,7 @@ if(!all(peaks$marker.id %in% markers$marker)){
 
 ### BLUP scan at each QTL if additive
 if(type_scan == 'additive'){
-   stopifnot(all(peaks$marker.id %in% markers$marker))
+   stopifnot(all(peaks$marker.id %in% markers$marker.id))
    stopifnot(c('K','genoprobs') %in% ls())
   
    peaks = cbind(peaks, matrix(0, nrow = nrow(peaks), ncol = 8,
