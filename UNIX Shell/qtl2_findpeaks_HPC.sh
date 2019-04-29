@@ -11,6 +11,7 @@ thr='6'
 num_cores='32'
 type_scan='sex'
 drop='1.5'
+cis_threshold='4'
 int_mat='weinstock_doma_16s_microbiome_sex_int_qtl_lod.rds'
 
 
