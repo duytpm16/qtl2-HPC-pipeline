@@ -77,7 +77,7 @@ if(length(dataset_expr) == 3){
 scan1_mat <- readRDS(scan1_mat)
 thr       <- as.numeric(thr)
 num_cores <- as.numeric(num_cores)
-
+cis_threshold <- as.numeric(cis_threshold)
 
 
 
