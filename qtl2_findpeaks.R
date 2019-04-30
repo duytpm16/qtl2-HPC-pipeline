@@ -251,10 +251,10 @@ if(type_scan == 'additive'){
 
 
 ### Determine if QTLs are cis or not
-if((ds$datatype %in% c('mRNA', 'protein'))){
+if((ds$datatype %in% c('mrna', 'protein'))){
 
-   id = if(ds$datatype == 'mRNA') 'gene_id' else 'protein_id'
-   annots = if(ds$datatype == 'mRNA') 'annot.mrna' else 'annot.protein'
+   id = if(ds$datatype == 'mrna') 'gene.id' else 'protein.id'
+   annots = if(ds$datatype == 'mrna') 'annot.mrna' else 'annot.protein'
    annots <- ds[[annots]]
    peaks  <- merge(peaks, annots[,c(id,'chr','start','end','symbol')], by.x='annot.id',by.y = id, all.x = TRUE)
 
@@ -273,11 +273,11 @@ if((ds$datatype %in% c('mRNA', 'protein'))){
       if(is.matrix(int_mat)){
 
       	 peaks <- peaks %>% 
-	         	select(annot.id, marker.id, lod, qtl.chr, qtl.pos, gene.chr, gene.start, gene.end, gene.symbol, cis, ci.lo, ci.hi)
+	         	select(annot.id, marker.id, lod, qtl.chr, qtl.pos, gene.chr, gene.start, gene.middle, gene.end, gene.symbol, cis, ci.lo, ci.hi)
       }else{ 
          
         peaks <- peaks %>%
-                        select(annot.id, marker.id, lod, qtl.chr, qtl.pos, gene.chr, gene.start, gene.end, gene.symbol, cis, ci.lo, ci.hi, A, B, C, D, E, F, G, H) 
+                        select(annot.id, marker.id, lod, qtl.chr, qtl.pos, gene.chr, gene.start, gene.middle, gene.end, gene.symbol, cis, ci.lo, ci.hi, A, B, C, D, E, F, G, H) 
          
       }
 		  
@@ -286,11 +286,11 @@ if((ds$datatype %in% c('mRNA', 'protein'))){
       if(is.matrix(int_mat)){
 
          peaks <- peaks %>%
-                        select(annot.id, marker.id, lod, qtl.chr, qtl.pos, gene.chr, gene.start, gene.end, gene.symbol, cis)
+                        select(annot.id, marker.id, lod, qtl.chr, qtl.pos, gene.chr, gene.start, gene.middle, gene.end, gene.symbol, cis)
       }else{
 
         peaks <- peaks %>%
-                        select(annot.id, marker.id, lod, qtl.chr, qtl.pos, gene.chr, gene.start, gene.end, gene.symbol, cis, A, B, C, D, E, F, G, H)
+                        select(annot.id, marker.id, lod, qtl.chr, qtl.pos, gene.chr, gene.start, gene.middle, gene.end, gene.symbol, cis, A, B, C, D, E, F, G, H)
 
       }
 
