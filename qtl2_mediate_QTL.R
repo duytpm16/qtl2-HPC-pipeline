@@ -158,7 +158,7 @@ results <- data.frame(target.id     = lod.peaks[,targ_id],
                       inverse.lod     = numeric(length = n),
                       mediation.z     = numeric(length = n),
                       inverse.z       = numeric(length = n))
-results <- results %>% rename(targ.id = targ_id, qtl.pos = qtl_pos_name)
+results <- results %>% as.data.frame() %>% rename(targ.id = targ_id, qtl.pos = qtl_pos_name)
 
 
 
