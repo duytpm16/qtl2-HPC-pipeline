@@ -87,7 +87,7 @@ stopifnot(colnames(med_expr)   == med_annot$id)
 stopifnot(rownames(targ_expr)  == rownames(med_expr))
 stopifnot(rownames(med_expr)   == rownames(targ_covar))
 stopifnot(rownames(targ_covar) == rownames(med_covar))
-
+stopifnot('middle' %in% colnames(med_annot))
 
 
 
@@ -183,7 +183,6 @@ for(i in 1:nrow(results)){
     qtl.chr <- results$qtl.chr[i]
     qtl.pos <- results$qtl.pos[i]
     marker  <- results$qtl.marker[i]
-    mid     <- (results$target.start[i] + results$target.end[i]) / 2
     
     
   
@@ -213,7 +212,7 @@ for(i in 1:nrow(results)){
     # Filter mediation results that satisfy threshold requirement
     med <- med %>% 
                mutate(scaled_LOD = scale(LOD)) %>%
-               filter(scaled_LOD < z_thres & chr == qtl.chr & abs(mid - qtl.pos) <= pos_thres)
+               filter(scaled_LOD < z_thres & chr == qtl.chr & abs(middle - qtl.pos) <= pos_thres)
     
   
     
