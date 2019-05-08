@@ -251,10 +251,10 @@ if(type_scan == 'additive'){
 
 
 ### Determine if QTLs are cis or not
-if((ds$datatype %in% c('mrna', 'protein'))){
+if((tolower(ds$datatype) %in% c('mrna', 'protein','proteins'))){
 
-   id = if(ds$datatype == 'mrna') 'gene.id' else 'protein.id'
-   annots = if(ds$datatype == 'mrna') 'annot.mrna' else 'annot.protein'
+   id = if(tolower(ds$datatype) == 'mrna') 'gene.id' else 'protein.id'
+   annots = if(tolower(ds$datatype) == 'mrna') 'annot.mrna' else 'annot.protein'
    annots <- ds[[annots]]
    peaks  <- merge(peaks, annots[,c(id,'chr','start','end','symbol')], by.x='annot.id',by.y = id, all.x = TRUE)
 
