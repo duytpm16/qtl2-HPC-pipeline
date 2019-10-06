@@ -11,7 +11,7 @@
 #       4: thr:          See thre parameter in find_peaks function.
 #       5: num_cores:    Number of cores to run
 #       6: type_scan:    Type of scan. Ex. 'additive', 'sex_int', 'age_int'...
-#       7: drop:         (Optional) See 'drop' parameter of find_peaks function. Leave as 'NA' or 'na' if not used
+#       7: prob:         (Optional) See 'prob' parameter of find_peaks function. Leave as 'NA' or 'na' if not used
 #	8: int_mat:      (Optional) LOD matrix from interaction scan to get effects. Leave as 'NA' or 'na' if not used
 #
 #
@@ -89,10 +89,10 @@ cis_threshold <- as.numeric(cis_threshold)
 
 
 ### Get confidence intervals for find_peaks
-if(!drop %in% c('NA','na')){
-    drop <- as.numeric(drop)
+if(tolower(prob) != 'na'){
+    prob <- as.numeric(prob)
 }else{
-    drop <- NULL
+    prob <- NULL
 }
 
 
@@ -107,7 +107,7 @@ if(!drop %in% c('NA','na')){
 
 
 ### Get interaction matrix if type_scan is not additive
-if(!int_mat %in% c('NA','na')){
+if(tolower(int_mat) != 'na'){
    int_mat <- readRDS(int_mat)
    
    stopifnot(dim(int_mat) == dim(scan1_mat))
@@ -131,8 +131,8 @@ if(!int_mat %in% c('NA','na')){
 peaks <- find_peaks(scan1_mat, 
 		    map = map, 
 		    threshold = thr, 
-                    drop = drop, 
-                    cores = num_cores)
+                    prob      = prob, 
+                    cores     = num_cores)
 
 
 
@@ -146,7 +146,7 @@ peaks <- find_peaks(scan1_mat,
 
 
 ### Formatting for QTL Viewer
-if(!is.null(drop)){
+if(tolower(prob) != 'na'){
 
    peaks <- peaks %>%
                   select(-lodindex) %>%                         # Remove lodindex column
