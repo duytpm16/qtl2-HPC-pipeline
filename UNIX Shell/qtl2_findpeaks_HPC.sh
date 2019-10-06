@@ -41,11 +41,11 @@ dataset_expr='dataset.doma.microbiome|data|rz'
 thr='6'
 num_cores='32'
 type_scan='sex_int'
-drop='1.5'
+prob='1.5'
 cis_threshold='4'
 int_mat='weinstock_doma_16s_microbiome_sex_int_qtl_lod.rds'
 
 
 
-Rscript qtl2_findpeaks.R "viewer_data=$viewer_data" "scan1_mat=$scan1_mat" "dataset_expr=$dataset_expr" "thr=$thr" "num_cores=$num_cores" "type_scan=$type_scan" "drop=$drop" "cis_threshold=$cis_threshold" "int_mat=$int_mat"
+Rscript qtl2_findpeaks.R "viewer_data=$viewer_data" "scan1_mat=$scan1_mat" "dataset_expr=$dataset_expr" "thr=$thr" "num_cores=$num_cores" "type_scan=$type_scan" "prob=$prob" "cis_threshold=$cis_threshold" "int_mat=$int_mat"
 
