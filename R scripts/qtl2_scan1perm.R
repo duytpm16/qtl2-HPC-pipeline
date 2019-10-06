@@ -16,12 +16,13 @@
 #
 #
 #   Input:
-#      1: input.file:    Path to the qtl viewer .RData 
+#      1: viewer:        Path to the qtl viewer .RData 
 #      2: dataset_expr:  Which dataset.* and data type to use. Ex. dataset.islet.proteins|data (if only one expression matrix) or dataset.islet.proteins|data|rz (if there are multiple expression matrices in 'data')
 #      3: int_name:      (Optional) A string with interactive variables in samples dataframe separated by '|'. Ex. 'sex' or 'sex|batch'. 'NA' or 'na' if not used
 #      4: num_cores:     Number of cores to run
-#      5: chunk_number:  (Optional) Numeric value of the chunk number. 'NA' or 'na' if not used
-#      6: chunk_size:    (Optional) Numeric value of chunk size. Should be consistent.  'NA' or 'na' if not used
+#      5: perm_run:      Number of permutations
+#      6: chunk_number:  (Optional) Numeric value of the chunk number. 'NA' or 'na' if not used
+#      7: chunk_size:    (Optional) Numeric value of chunk size. Should be consistent.  'NA' or 'na' if not used
 #
 #   Output: 
 #       1: Matrix containing LOD scoress for each of the phenotype that was given to scan1 at each marker.
