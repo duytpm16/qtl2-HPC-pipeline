@@ -15,8 +15,8 @@
 #
 #
 #
-#   Input:
-#      1: input.file:    Path to the qtl viewer .RData 
+#   Input (for shell script; see (https://github.com/duytpm16/qtl2-HPC-pipeline/blob/master/UNIX%20Shell/qtl2_scan1_HPC.sh):
+#      1: viewer:        Path to the qtl viewer .RData 
 #      2: dataset_expr:  Which dataset.* and data type to use. Ex. dataset.islet.proteins|data (if only one expression matrix) or dataset.islet.proteins|data|rz (if there are multiple expression matrices in 'data')
 #      3: int_name:      (Optional) A string with interactive variables in samples dataframe separated by '|'.     Ex. 'sex' or 'sex|batch'. 'NA' or 'na' if not used
 #      4: num_cores:     Number of cores to run
@@ -24,7 +24,7 @@
 #      6: chunk_size:    (Optional) Numeric value of chunk size. Should be consistent. 'NA' or 'na' if not used
 #
 #   Output: 
-#       1: Matrix containing LOD scoress for each of the phenotype that was given to scan1 at each marker.
+#       1: Matrix containing LOD scores for each of the phenotype that was given to scan1 at each marker.
 #
 #
 #
@@ -45,12 +45,12 @@ library(qtl2)
 
 
 ### Command line arguments / Variables to change
-# 1: input.file:   Path to the qtl viewer .RData 
-# 2: dataset_expr:   Which dataset.* and data type to use. Ex. dataset.islet.proteins$data (if only one expression matrix) or dataset.islet.proteins$data$rz (if there are multiple expression matrices in 'data')
-# 3: int_name:     A string with interactive variables in samples dataframe separated by '|'.     Ex. 'sex' or 'sex|batch'
-# 4: num_cores:    Number of cores to run
-# 5: chunk_number: Numeric value of the chunk number. Can be left blank
-# 6: chunk_size:   Numeric value of chunk size. Should be consistent. Can be left blank
+# 1: viewer:        Path to the qtl viewer .RData 
+# 2: dataset_expr:  Which dataset.* and data type to use. Ex. dataset.islet.proteins$data (if only one expression matrix) or dataset.islet.proteins$data$rz (if there are multiple expression matrices in 'data')
+# 3: int_name:      A string with interactive variables in samples dataframe separated by '|'.     Ex. 'sex' or 'sex|batch'
+# 4: num_cores:     Number of cores to run
+# 5: chunk_number:  Numeric value of the chunk number. Can be left blank
+# 6: chunk_size:    Numeric value of chunk size. Should be consistent. Can be left blank
 args <- commandArgs(trailingOnly = TRUE)
 print(args)
 if(length(args)==0){
@@ -123,7 +123,7 @@ num_cores <- as.numeric(num_cores)
 
 
 ### Get interactive matrix
-if(!int_name %in% c('NA','na')){
+if(tolower(int_name) != 'na'){
     
    # Get samples dataframe 
    samples <- ds$annot.samples
@@ -221,8 +221,8 @@ output_file <- sub('.', '_', output_file, fixed = TRUE)
 output_int  <- gsub('|','_',int_name, fixed = TRUE)
 
 
-if(int_name == 'NA'){
-   if(chunk_number == 'NA'){
+if(tolower(int_name) == 'na'){
+   if(tolower(chunk_number) == 'na'){
       saveRDS(scan1_output, paste0(output_file, '_additive_scan.rds'))
    }else{
       saveRDS(scan1_output, paste0(output_file, '_additive_scan_chunk_',chunk_number,'.rds'))
@@ -230,7 +230,7 @@ if(int_name == 'NA'){
 
 }else{
 
-   if(chunk_number == 'NA'){
+   if(tolower(chunk_number) == 'na'){
       saveRDS(scan1_output, paste0(output_file, '_', output_int, '_int_scan.rds'))
    }else{
       saveRDS(scan1_output, paste0(output_file, '_', output_int, '_int_scan_chunk_', chunk_number,'.rds'))
