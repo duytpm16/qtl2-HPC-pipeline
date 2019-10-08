@@ -309,7 +309,7 @@ annot.id <- switch(ds$datatype,
 		   'protein'   = 'protein.id',
 		   'mrna'      = 'gene.id',
 		   'phenotype' = 'data.name')
-colnames(peaks)[1] <- as_tibble(annot.id)
+colnames(peaks)[1] <- annot.id
 
 
 
@@ -319,7 +319,7 @@ colnames(peaks)[1] <- as_tibble(annot.id)
 
 
 ### Save peaks to data
-ds$lod.peaks[[type_scan]] <- peaks
+ds$lod.peaks[[type_scan]] <- as_tibble(peaks)
 assign(dataset_expr[1], ds)
 
 
