@@ -1,22 +1,45 @@
-# viewer_data:  path to QTL formatted .RData
-# targ_dataset_expr: dataset.* of the target | data | expression matrix name
-# med_dataset_expr:  dataset.* of the mediator | data | expression matrix name
-# targ_id:      target identification in annots data frame: Ex. 'protein_id' or 'gene_id'
-# med_id:       mediator identification in annots data frame: Ex. 'protein_id' or 'gene_id'
-# targ_annot:   Annotation of the target
-# med_annot:    Annotation of the mediator
-# type_peak:    Which LOD summary table to use in lod.peaks list in dataset.*
-# med_method:   See 'method' parameter in intermediate package by Petr Simecek
-# z_thres:      Z-score cut-off. Remove mediators that do not drop LOD score below z_thres. Should be negative value
-# pos_thes:     Keep mediators that are within some Mbp of the QTL
-# cores:        Number of cores
-# filename:     Name to save results
-# chunk_size:   Chunk size. Should be consistent.
-# chunk_number: Chunk number. Changes with 'i' below
-
-
-
-
+#########################################################################################################################
+#  This script does mediation analysis with QTL viewer formatted data using R script located:
+#     https://github.com/duytpm16/qtl2-HPC-pipeline/blob/master/R%20scripts/qtl2_mediate_QTL.R
+#
+#  Note*: 
+#     'intermediate' package was downloaded from https://github.com/simecek/intermediate
+#     'intermediate2' package was downloaded from https://github.com/duytpm16/intermediate2
+#
+#     The script also assumes all samples within the mediator dataset are within the target dataset.
+#     If not, you should subset the data.
+#
+#     Can be run in parellel. The lod.peaks table is divided into chunks based on input
+#
+# 
+#  Input:
+#    viewer_data:       path to QTL formatted .RData
+#    targ_dataset_expr: dataset.* of the target | data | expression matrix name.     Ex. dataset.islet.proteins|data (if $data is a matrix) or dataset|data|rz (if $data is a list of data)
+#    med_dataset_expr:  dataset.* of the mediator | data | expression matrix name.   Ex. dataset.islet.proteins|data (if $data is a matrix) or dataset|data|rz (if $data is a list of data)
+#    targ_id:           target identification in annots data frame: Ex. 'protein.id' or 'gene.id'
+#    med_id:            mediator identification in annots data frame: Ex. 'protein.id' or 'gene.id'
+#    targ_annot:        Annotation dataframe of the target
+#    med_annot:         Annotation dataframe of the mediator
+#    type_peak:         Which LOD summary table to use in lod.peaks list in dataset.*
+#    med_method:        See 'method' parameter in intermediate package by Petr Simecek
+#    z_thres:           Z-score cut-off. Remove mediators that do not drop LOD score below z_thres. Should be negative value
+#    pos_thes:          Keep mediators that are within some Mbp of the QTL
+#    cores:             Number of cores
+#    filename:          Name to save results
+#    chunk_size:        Chunk size. Should be consistent.
+#    chunk_number:      Chunk number. Changes with 'i' below
+#
+#
+#
+#  Output:
+#    Matrix of mediation results
+#
+#
+#
+#
+#  Author: Duy Pham
+#  E-mail: duy.pham@jax.org
+#########################################################################################################################
 #PBS -l nodes=1:ppn=1
 #PBS -l walltime=24:00:00
 
