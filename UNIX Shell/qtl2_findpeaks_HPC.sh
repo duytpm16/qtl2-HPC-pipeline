@@ -12,7 +12,7 @@
 #       5: num_cores:    Number of cores to run
 #       6: type_scan:    Name to save peaks table in lod.peaks list. Type of scan. Ex. 'additive', 'sex_int', 'age_int'...
 #       7: prob:         (Optional) See 'prob' parameter of find_peaks function. Leave as 'NA' or 'na' if not used
-#	      8: int_mat:      (Optional) LOD matrix from interaction scan to get effects. Leave as 'NA' or 'na' if not used
+#       8: int_mat:      (Optional) LOD matrix from interaction scan to get effects. Leave as 'NA' or 'na' if not used
 #
 #
 #   Output: 
