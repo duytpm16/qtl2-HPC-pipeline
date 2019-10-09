@@ -1,7 +1,7 @@
 ####################################################################################################################
 #
-#   This shell script runs the find_peaks function in qtl2 on HPC.
-#
+#   This shell script runs the find_peaks function in qtl2 on HPC using R script located
+#       https://github.com/duytpm16/qtl2-HPC-pipeline/edit/master/R%20scripts/qtl2_findpeaks.R
 #
 #
 #   Input:
