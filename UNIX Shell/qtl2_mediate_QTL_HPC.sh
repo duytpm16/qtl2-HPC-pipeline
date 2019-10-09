@@ -47,44 +47,38 @@
 module load R/3.5.1
 
 
-job_name='attie_distal_pQTL_mediation'
 
-for i in {1..68}
+
+job_name='attie_eqtl_mediated_by_eqtl'
+
+for i in {1..407}
 do
-  echo "#PBS -l nodes=1:ppn=8
+  echo "#PBS -l nodes=1:ppn=1
 #PBS -q batch
-#PBS -l walltime=24:00:00
-
+#PBS -l walltime=72:00:00
 module load R/3.5.1
 
 
-
-viewer_data='attie_islet_284_qtl_viewer_v2.RData'
-targ_dataset_expr='dataset.islet.proteins.284|data|rz'
-med_dataset_expr='dataset.islet.mrna.284|data|rz'
-targ_id='protein.id'
+viewer_data='attie_all_qtl_viewer_v6.RData'
+targ_dataset_expr='dataset.islet.rnaseq|data|rz'
+med_dataset_expr='dataset.islet.rnaseq|data|rz'
+targ_id='gene.id'
 med_id='gene.id'
-targ_annot='annot.protein'
+targ_annot='annot.mrna'
 med_annot='annot.mrna'
 type_peak='additive'
 med_method='double-lod-diff'
 z_thres='-4'
 pos_thres='10'
-cores='8'
-filename='attie_islet_proteins_distal_pQTL_mediation'
+cores='1'
+filename='attie_378_islet_eqtl_mediated_by_mrna'
 chunk_number=${i}
 chunk_size='100'
 qtl_pos_name='qtl.pos'
 
 
 
-
-
-
-Rscript qtl2_mediate_QTL.R viewer_data=\$viewer_data targ_dataset_expr=\$targ_dataset_expr med_dataset_expr=\$med_dataset_expr targ_id=\$targ_id med_id=\$med_id targ_annot=\$targ_annot med_annot=\$med_annot type_peak=\$type_peak med_method=\$med_method z_thres=\$z_thres pos_thres=\$pos_thres cores=\$cores filename=\$filename chunk_number=\$chunk_number chunk_size=\$chunk_size qtl_pos_name=\$qtl_pos_name" >> "${job_name}_${i}.sh"
+Rscript qtl2_mediate_QTL_v2.R viewer_data=\$viewer_data targ_dataset_expr=\$targ_dataset_expr med_dataset_expr=\$med_dataset_expr targ_id=\$targ_id med_id=\$med_id targ_annot=\$targ_annot med_annot=\$med_annot type_peak=\$type_peak med_method=\$med_method z_thres=\$z_thres pos_thres=\$pos_thres cores=\$cores filename=\$filename chunk_number=\$chunk_number chunk_size=\$chunk_size qtl_pos_name=\$qtl_pos_name" >> "${job_name}_${i}.sh"
 qsub "${job_name}_${i}.sh"
 done
-
-
-
 
