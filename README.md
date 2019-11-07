@@ -11,7 +11,7 @@ Need to match the .R script with corresponding shell script in UNIX Shell direct
 
 
 1. Run qtl_scan1.R
-2. Run qtl2_gather_chunks.R (Optional)
+2. Run qtl2_gather_chunks.R
 3. Run qtl2_findpeaks.R
-4. Run qtl2_scan1perm.R (optional)
-5. Run qtl2_QTL_mediate.R (optional)
+4. Run qtl2_scan1perm.R
+5. Run qtl2_QTL_mediate.R 
