@@ -2,7 +2,7 @@
  
  
 See 
-https://github.com/churchill-lab/qtlapi/blob/master/docs/QTLAPIDataStructures.md
+https://github.com/duytpm16/qtl2-HPC-pipeline/blob/master/DataElements.docx
 
 
 
