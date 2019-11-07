@@ -6,10 +6,11 @@ https://github.com/churchill-lab/qtlapi/blob/master/docs/QTLAPIDataStructures.md
 
 
 
-Need to match the .Rscript with corresponding shell script in UNIX Shell directory
+Need to match the .R script with corresponding shell script in UNIX Shell directory
 
 
 
 1. Run qtl_scan1.R
 2. Run qtl2_gather_chunks.R
 3. Run qtl2_findpeaks.R
+4. Run qtl2_mediation.R (optional)
